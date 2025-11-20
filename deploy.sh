@@ -6,7 +6,7 @@
 # Hata durumunda dur
 set -e
 
-SSH_KEY="$HOME/.ssh/bezmidar_deploy"
+SSH_KEY="$HOME/.ssh/dijitalmentor_deploy"
 SERVER_USER="u553245641"
 SERVER_IP="185.224.137.82"
 REMOTE_DIR="~/public_html"
