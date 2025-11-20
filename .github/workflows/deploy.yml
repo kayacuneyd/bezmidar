@@ -24,7 +24,7 @@ jobs:
     - name: 🛠️ Build Project
       run: npm run build
       env:
-        PUBLIC_API_URL: https://dijitalmentor.de/api
+        PUBLIC_API_URL: https://dijitalmentor.de/server/api
         PUBLIC_MOCK_MODE: false
       # Bu komut sveltekit output'unu 'build' klasörüne çıkarır
 
