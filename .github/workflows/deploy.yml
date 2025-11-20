@@ -1,0 +1,40 @@
+name: Deploy to Shared Hosting
+
+on:
+  push:
+    branches:
+      - master  # Sadece main branch'e push atınca çalışsın
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: 📦 Install Dependencies
+      run: npm install
+
+    - name: 🛠️ Build Project
+      run: npm run build
+      # Bu komut sveltekit output'unu 'build' klasörüne çıkarır
+
+    - name: 📂 Sync files via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./build/    # SvelteKit'in oluşturduğu klasör
+        server-dir: ./public_html/  # Sunucudaki hedef klasör (Dikkat!)
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          api/** # DİKKAT: Backend (PHP) klasörünü silmemesi için bunu hariç tutun!

@@ -4,7 +4,6 @@
       <!-- Logo & Tagline -->
       <div>
         <div class="flex items-center gap-2 mb-3">
-          <img src="/logo.svg" alt="DijitalMentor" class="h-8" />
           <span class="font-bold text-xl">DijitalMentor</span>
         </div>
         <p class="text-gray-400 text-sm">

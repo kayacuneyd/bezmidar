@@ -13,7 +13,6 @@
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2">
-        <img src="/logo.svg" alt="DijitalMentor" class="h-8" />
         <span class="font-bold text-xl text-primary-600">DijitalMentor</span>
       </a>
       
