@@ -14,13 +14,13 @@ if ($isProduction) {
     define('DB_HOST', 'localhost');
     define('DB_NAME', 'u553245641_dijitalmentor');
     define('DB_USER', 'u553245641_dijitalmentor');
-    define('DB_PASS', 'YOUR_HOSTINGER_PASSWORD_HERE'); // TODO: Update this
+    define('DB_PASS', 'Dijitalmentor1453!');
 } else {
     // Local development settings
     define('DB_HOST', 'localhost');
-    define('DB_NAME', 'dijitalmentor');
-    define('DB_USER', 'root');
-    define('DB_PASS', ''); // MAMP/XAMPP usually has no password
+    define('DB_NAME', 'u553245641_dijitalmentor');
+    define('DB_USER', 'u553245641_dijitalmentor');
+    define('DB_PASS', 'Dijitalmentor1453!');
 }
 
 // JWT Secret for token generation
@@ -29,7 +29,7 @@ define('JWT_SECRET', 'your-secret-key-change-this-in-production'); // TODO: Chan
 // File upload settings
 define('UPLOAD_DIR', __DIR__ . '/../../uploads/');
 define('MAX_AVATAR_SIZE', 2 * 1024 * 1024); // 2MB
-define('MAX_CV_SIZE', 5 * 1024 * 1024); // 5MB
+define('MAX_CV_SIZE', 2 * 1024 * 1024); // 2MB
 
 try {
     $pdo = new PDO(
@@ -48,27 +48,28 @@ try {
 }
 
 // Helper function to get current user from JWT token
-function getCurrentUser() {
+function getCurrentUser()
+{
     global $pdo;
-    
+
     $headers = getallheaders();
     $authHeader = $headers['Authorization'] ?? '';
-    
+
     if (!preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
         return null;
     }
-    
+
     $token = $matches[1];
-    
+
     // Simple token validation (in production, use proper JWT library)
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ? AND is_active = 1");
-    
+
     // Extract user ID from token (format: mock-token-{userId}-{timestamp})
     if (preg_match('/mock-token-(\d+)/', $token, $userMatches)) {
         $stmt->execute([$userMatches[1]]);
         return $stmt->fetch();
     }
-    
+
     return null;
 }
 

@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS users (
     zip_code VARCHAR(10) DEFAULT NULL,
     is_verified BOOLEAN DEFAULT 0 COMMENT 'Öğrenci belgesi onayı',
     approval_status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved' COMMENT 'Hesap onay durumu',
+    is_premium BOOLEAN DEFAULT 0 COMMENT 'Premium üyelik durumu',
+    premium_expires_at TIMESTAMP NULL DEFAULT NULL COMMENT 'Premium üyelik bitiş tarihi',
     is_active BOOLEAN DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -30,7 +32,8 @@ CREATE TABLE IF NOT EXISTS users (
     INDEX idx_phone (phone),
     INDEX idx_role (role),
     INDEX idx_active (is_active),
-    INDEX idx_approval (approval_status)
+    INDEX idx_approval (approval_status),
+    INDEX idx_premium (is_premium)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ===================================
@@ -47,6 +50,7 @@ CREATE TABLE IF NOT EXISTS teacher_profiles (
     address_detail VARCHAR(255) DEFAULT NULL,
     hourly_rate DECIMAL(10, 2) DEFAULT 20.00,
     video_intro_url VARCHAR(255) DEFAULT NULL COMMENT 'Tanıtım videosu',
+    cv_url VARCHAR(255) DEFAULT NULL COMMENT 'CV dosyası (premium)',
     experience_years TINYINT DEFAULT 0,
     total_students INT DEFAULT 0 COMMENT 'Toplam öğrenci sayısı',
     rating_avg DECIMAL(3,2) DEFAULT 0.00 COMMENT '0.00 - 5.00',

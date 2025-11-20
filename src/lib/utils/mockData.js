@@ -146,7 +146,9 @@ export const mockData = {
     role: 'parent',
     phone: '+49123456789',
     token: 'mock-token-123',
-    approval_status: 'approved'
+    approval_status: 'approved',
+    is_premium: false,
+    premium_expires_at: null
   },
   lessonRequests: [
     {
