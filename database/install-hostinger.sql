@@ -1,12 +1,11 @@
 -- ===================================
--- BEZMIDAR DATABASE INSTALLATION
+-- BEZMIDAR DATABASE INSTALLATION (Hostinger Version)
 -- ===================================
--- This file contains the complete database schema and initial data
--- Run this file once to set up your database
--- Character set: utf8mb4 for Turkish character support
+-- Bu dosyayı phpMyAdmin'de u553245641_bezmidar veritabanını seçtikten sonra import edin
+-- İlk CREATE DATABASE satırı kaldırılmıştır
 
--- CREATE DATABASE IF NOT EXISTS bezmidar_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
--- USE bezmidar_db;
+-- Mevcut veritabanını kullan
+USE u553245641_bezmidar;
 
 -- ===================================
 -- USERS TABLE

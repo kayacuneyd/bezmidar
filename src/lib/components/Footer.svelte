@@ -44,12 +44,37 @@
     </div>
     
     <!-- Bottom -->
-    <div class="border-t border-gray-800 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-      <p>© 2025 Bezmidar. Tüm hakları saklıdır.</p>
-      <div class="flex gap-4 mt-4 md:mt-0">
-        <a href="javascript:void(0)" class="hover:text-white">Instagram</a>
-        <a href="javascript:void(0)" class="hover:text-white">Facebook</a>
-        <a href="javascript:void(0)" class="hover:text-white">WhatsApp</a>
+    <div class="border-t border-gray-800 mt-8 pt-6 text-sm text-gray-500">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <!-- Copyright & Location -->
+        <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+          <p>© 2025 Bezmidar. Tüm hakları saklıdır.</p>
+          <span class="hidden md:inline text-gray-700">•</span>
+          <p class="flex items-center gap-1">
+            <span>🏗️</span>
+            <span>Built in Kornwestheim</span>
+          </p>
+        </div>
+        
+        <!-- Developer Credit -->
+        <div class="flex items-center gap-2">
+          <span class="text-gray-600">Developed by</span>
+          <a 
+            href="https://kayacuneyt.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="font-medium text-blue-400 hover:text-blue-300 transition"
+          >
+            Cüneyt Kaya
+          </a>
+        </div>
+      </div>
+      
+      <!-- Social Media -->
+      <div class="flex justify-center gap-4 mt-6 pt-4 border-t border-gray-800">
+        <a href="javascript:void(0)" class="hover:text-white transition">Instagram</a>
+        <a href="javascript:void(0)" class="hover:text-white transition">Facebook</a>
+        <a href="javascript:void(0)" class="hover:text-white transition">WhatsApp</a>
       </div>
     </div>
   </div>
