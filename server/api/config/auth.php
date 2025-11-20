@@ -101,3 +101,121 @@ function verifyPassword($password, $hash)
 {
     return password_verify($password, $hash);
 }
+
+function buildUserResponse($userId)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare("
+        SELECT 
+            u.id,
+            u.phone,
+            u.full_name,
+            u.role,
+            u.avatar_url,
+            u.email,
+            u.city,
+            u.zip_code,
+            u.approval_status,
+            u.is_premium,
+            u.premium_expires_at,
+            u.is_verified,
+            u.is_active,
+            u.created_at,
+            u.updated_at
+        FROM users u
+        WHERE u.id = ?
+        LIMIT 1
+    ");
+    $stmt->execute([$userId]);
+    $user = $stmt->fetch();
+
+    if (!$user) {
+        return null;
+    }
+
+    if ($user['role'] === 'student') {
+        $profileStmt = $pdo->prepare("
+            SELECT 
+                university,
+                department,
+                graduation_year,
+                bio,
+                city,
+                zip_code,
+                address_detail,
+                hourly_rate,
+                video_intro_url,
+                cv_url,
+                experience_years,
+                total_students,
+                rating_avg,
+                review_count
+            FROM teacher_profiles
+            WHERE user_id = ?
+            LIMIT 1
+        ");
+        $profileStmt->execute([$userId]);
+        $profile = $profileStmt->fetch();
+
+        if ($profile) {
+            $user['university'] = $profile['university'];
+            $user['department'] = $profile['department'];
+            $user['graduation_year'] = $profile['graduation_year'];
+            $user['bio'] = $profile['bio'];
+            $user['teacher_city'] = $profile['city'];
+            $user['teacher_zip_code'] = $profile['zip_code'];
+            $user['address_detail'] = $profile['address_detail'];
+            $user['hourly_rate'] = $profile['hourly_rate'];
+            $user['video_intro_url'] = $profile['video_intro_url'];
+            $user['cv_url'] = $profile['cv_url'];
+            $user['experience_years'] = $profile['experience_years'];
+            $user['total_students'] = $profile['total_students'];
+            $user['rating_avg'] = $profile['rating_avg'];
+            $user['review_count'] = $profile['review_count'];
+
+            if (empty($user['city']) && !empty($profile['city'])) {
+                $user['city'] = $profile['city'];
+            }
+
+            if (empty($user['zip_code']) && !empty($profile['zip_code'])) {
+                $user['zip_code'] = $profile['zip_code'];
+            }
+        }
+    }
+
+    return $user;
+}
+
+function authenticate($allowedRoles = [])
+{
+    $payload = getCurrentUser();
+
+    if (!$payload) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'error' => 'Authentication required']);
+        exit();
+    }
+
+    if (!empty($allowedRoles) && !in_array($payload['role'], $allowedRoles)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Insufficient permissions']);
+        exit();
+    }
+
+    $user = buildUserResponse((int) $payload['user_id']);
+
+    if (!$user) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'error' => 'User not found']);
+        exit();
+    }
+
+    if (empty($user['is_active'])) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Account is disabled']);
+        exit();
+    }
+
+    return $user;
+}

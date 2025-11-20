@@ -2,7 +2,7 @@
 require_once '../config/db.php';
 require_once '../config/auth.php';
 
-$user = authenticate();
+$user = authenticate(['parent']);
 
 try {
     $stmt = $pdo->prepare("

@@ -34,18 +34,13 @@ try {
     }
 
     $token = generateToken($user['id'], $user['role']);
+    $userData = buildUserResponse((int) $user['id']);
 
     echo json_encode([
         'success' => true,
         'data' => [
             'token' => $token,
-            'user' => [
-                'id' => $user['id'],
-                'full_name' => $user['full_name'],
-                'role' => $user['role'],
-                'phone' => $user['phone'],
-                'avatar_url' => $user['avatar_url']
-            ]
+            'user' => $userData
         ]
     ]);
 

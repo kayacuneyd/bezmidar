@@ -1,6 +1,7 @@
 <?php
 require_once '../config/cors.php';
 require_once '../config/db.php';
+require_once '../config/helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405);
@@ -55,6 +56,10 @@ try {
     ");
     $stmt->execute([$id]);
     $teacher['reviews'] = $stmt->fetchAll();
+
+    $coords = getCityCoordinates($teacher['city'] ?? '');
+    $teacher['lat'] = $coords['lat'];
+    $teacher['lng'] = $coords['lng'];
 
     echo json_encode([
         'success' => true,

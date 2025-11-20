@@ -2,13 +2,7 @@
 require_once '../config/db.php';
 require_once '../config/auth.php';
 
-$user = authenticate();
-
-if ($user['role'] !== 'parent') {
-    http_response_code(403);
-    echo json_encode(['error' => 'Sadece veliler talep oluşturabilir']);
-    exit;
-}
+$user = authenticate(['parent']);
 
 $data = json_decode(file_get_contents('php://input'), true);
 

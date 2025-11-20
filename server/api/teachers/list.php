@@ -1,6 +1,7 @@
 <?php
 require_once '../config/cors.php';
 require_once '../config/db.php';
+require_once '../config/helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405);
@@ -15,7 +16,7 @@ $limit = 10;
 $offset = ($page - 1) * $limit;
 
 try {
-    $where = ["u.role = 'student'", "u.is_active = 1", "u.is_verified = 1"]; // Sadece onaylı öğretmenler
+    $where = ["u.role = 'student'", "u.is_active = 1", "u.approval_status = 'approved'"]; // Sadece onaylı öğretmenler
     $params = [];
 
     if (!empty($city)) {
@@ -54,9 +55,21 @@ try {
     // Fetch teachers
     $sql = "
         SELECT 
-            u.id, u.full_name, u.avatar_url, u.is_verified,
-            tp.university, tp.department, tp.city, tp.hourly_rate, 
-            tp.rating_avg, tp.review_count,
+            u.id,
+            u.full_name,
+            u.avatar_url,
+            u.is_verified,
+            u.approval_status,
+            COALESCE(tp.city, u.city) AS city,
+            COALESCE(tp.zip_code, u.zip_code) AS zip_code,
+            tp.university,
+            tp.department,
+            tp.graduation_year,
+            tp.bio,
+            tp.hourly_rate, 
+            tp.experience_years,
+            tp.rating_avg,
+            tp.review_count,
             (
                 SELECT GROUP_CONCAT(s.name SEPARATOR ',')
                 FROM teacher_subjects ts
@@ -73,6 +86,19 @@ try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $teachers = $stmt->fetchAll();
+
+    foreach ($teachers as &$teacher) {
+        $coords = getCityCoordinates($teacher['city'] ?? '');
+        $teacher['lat'] = $coords['lat'];
+        $teacher['lng'] = $coords['lng'];
+
+        if (!empty($teacher['subjects'])) {
+            $teacher['subjects'] = array_filter(array_map('trim', explode(',', $teacher['subjects'])));
+        } else {
+            $teacher['subjects'] = [];
+        }
+    }
+    unset($teacher);
 
     echo json_encode([
         'success' => true,

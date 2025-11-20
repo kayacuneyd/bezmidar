@@ -3,13 +3,20 @@
 -- Last Updated: 2025-11-21
 -- ===================================
 
+-- Disable foreign key checks temporarily
+SET FOREIGN_KEY_CHECKS = 0;
+
 -- Drop existing tables if they exist (for clean install)
-DROP TABLE IF EXISTS teacher_subjects;
 DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS unlock_requests;
 DROP TABLE IF EXISTS lesson_requests;
+DROP TABLE IF EXISTS teacher_subjects;
 DROP TABLE IF EXISTS teacher_profiles;
 DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS users;
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- ===================================
 -- USERS TABLE
@@ -135,6 +142,24 @@ CREATE TABLE IF NOT EXISTS reviews (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ===================================
+-- UNLOCK REQUESTS TABLE
+-- ===================================
+CREATE TABLE IF NOT EXISTS unlock_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    parent_id INT NOT NULL,
+    teacher_id INT NOT NULL,
+    message TEXT,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_unlock_parent FOREIGN KEY (parent_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_unlock_teacher FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE KEY uniq_unlock_pair (parent_id, teacher_id),
+    INDEX idx_unlock_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ===================================
 -- INSERT DEMO DATA
 -- ===================================
 
@@ -195,6 +220,7 @@ INSERT INTO teacher_subjects (teacher_id, subject_id, proficiency_level) VALUES
 -- - is_premium and premium_expires_at for premium membership
 -- - cv_url for teacher CV uploads
 -- - city and zip_code fields for location-based search
+-- - unlock_requests table for iletişim talepleri
 -- 
 -- Password for demo users: 'password' (hashed with bcrypt)
 -- 

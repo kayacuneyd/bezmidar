@@ -14,6 +14,9 @@ $phone = trim($data['phone'] ?? '');
 $password = $data['password'] ?? '';
 $fullName = trim($data['full_name'] ?? '');
 $role = $data['role'] ?? 'student'; // student or parent
+$email = trim($data['email'] ?? '');
+$city = trim($data['city'] ?? '');
+$zipCode = trim($data['zip_code'] ?? '');
 
 // Validation
 if (empty($phone) || empty($password) || empty($fullName)) {
@@ -40,34 +43,58 @@ try {
 
     // Create user
     $passwordHash = hashPassword($password);
+    $approvalStatus = $role === 'student' ? 'pending' : 'approved';
+    $isVerified = $role === 'student' ? 0 : 1;
+
     $stmt = $pdo->prepare("
-        INSERT INTO users (phone, password_hash, full_name, role, is_active)
-        VALUES (?, ?, ?, ?, 1)
+        INSERT INTO users (
+            phone,
+            password_hash,
+            full_name,
+            role,
+            email,
+            city,
+            zip_code,
+            approval_status,
+            is_premium,
+            is_verified,
+            is_active
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 1)
     ");
-    $stmt->execute([$phone, $passwordHash, $fullName, $role]);
+    $stmt->execute([
+        $phone,
+        $passwordHash,
+        $fullName,
+        $role,
+        $email ?: null,
+        $city ?: null,
+        $zipCode ?: null,
+        $approvalStatus,
+        $isVerified
+    ]);
     $userId = $pdo->lastInsertId();
 
     // If student, create profile
     if ($role === 'student') {
-        $stmt = $pdo->prepare("INSERT INTO teacher_profiles (user_id) VALUES (?)");
-        $stmt->execute([$userId]);
+        $stmt = $pdo->prepare("
+            INSERT INTO teacher_profiles (user_id, city, zip_code)
+            VALUES (?, ?, ?)
+        ");
+        $stmt->execute([$userId, $city ?: null, $zipCode ?: null]);
     }
 
     $pdo->commit();
 
     // Generate token
     $token = generateToken($userId, $role);
+    $userData = buildUserResponse((int) $userId);
 
     echo json_encode([
         'success' => true,
         'data' => [
             'token' => $token,
-            'user' => [
-                'id' => $userId,
-                'full_name' => $fullName,
-                'role' => $role,
-                'phone' => $phone
-            ]
+            'user' => $userData
         ]
     ]);
 
