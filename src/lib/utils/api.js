@@ -30,6 +30,9 @@ class APIClient {
 
         let filteredTeachers = mockData.teachers;
 
+        // Only show approved teachers
+        filteredTeachers = filteredTeachers.filter(t => t.approval_status === 'approved');
+
         if (city && city !== 'undefined') {
           filteredTeachers = filteredTeachers.filter(t => t.city === city);
         }
@@ -81,10 +84,40 @@ class APIClient {
         const body = JSON.parse(options.body);
         const newUser = {
           ...mockData.user,
+          id: Math.floor(Math.random() * 10000), // Generate new ID
           full_name: body.full_name,
           phone: body.phone,
-          role: body.role
+          role: body.role,
+          city: body.city,
+          zip_code: body.zip_code,
+          approval_status: body.role === 'student' ? 'pending' : 'approved'
         };
+        
+        // If registering as teacher (student role in this codebase), add to teachers list
+        if (body.role === 'student') {
+          const newTeacher = {
+            id: newUser.id,
+            full_name: newUser.full_name,
+            avatar_url: '',
+            approval_status: 'pending',
+            university: '',
+            department: '',
+            city: newUser.city,
+            zip_code: newUser.zip_code,
+            lat: 52.52,
+            lng: 13.405,
+            hourly_rate: 0,
+            rating_avg: 0,
+            review_count: 0,
+            subjects: [],
+            bio: '',
+            graduation_year: null,
+            experience_years: 0,
+            reviews: []
+          };
+          mockData.teachers.unshift(newTeacher);
+        }
+
         return { 
           success: true, 
           data: { 
@@ -100,7 +133,9 @@ class APIClient {
       }
 
       if (endpoint.includes('/requests/my_requests.php')) {
-        return { success: true, data: mockData.lessonRequests.filter(r => r.parent_id === 201) };
+        const { user } = get(authStore);
+        const userId = user?.id || 201;
+        return { success: true, data: mockData.lessonRequests.filter(r => r.parent_id === userId) };
       }
 
       if (endpoint.includes('/requests/detail.php')) {
@@ -111,11 +146,12 @@ class APIClient {
       }
 
       if (endpoint.includes('/requests/create.php')) {
+        const { user } = get(authStore);
         const body = JSON.parse(options.body);
         const newRequest = {
           id: Math.floor(Math.random() * 1000),
-          parent_id: 201,
-          parent_name: 'Demo Veli',
+          parent_id: user?.id || 201,
+          parent_name: user?.full_name || 'Demo Veli',
           ...body,
           status: 'active',
           created_at: new Date().toISOString().split('T')[0]

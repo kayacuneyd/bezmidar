@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import { authStore } from '$lib/stores/auth.js';
   import { api } from '$lib/utils/api.js';
+  import { goto } from '$app/navigation';
   
   let teacher = null;
   let loading = true;
@@ -25,15 +26,17 @@
     }
   }
   
+  import { toast } from '$lib/stores/toast.js';
+
   function handleContact() {
     if (!isAuthenticated) {
-      alert('İletişim için giriş yapmalısınız');
-      window.location.href = '/giris';
+      toast.info('İletişim için giriş yapmalısınız');
+      goto('/giris');
       return;
     }
     
     if (userRole !== 'parent') {
-      alert('Sadece veliler iletişime geçebilir');
+      toast.error('Sadece veliler iletişime geçebilir');
       return;
     }
     
@@ -84,8 +87,10 @@
             <div class="flex-1">
               <h1 class="text-3xl font-bold mb-2 flex items-center gap-2 text-gray-900">
                 {teacher.full_name}
-                {#if teacher.is_verified}
-                  <span class="text-blue-600 text-xl" title="Doğrulanmış öğretmen">✓</span>
+                {#if teacher.approval_status === 'approved'}
+                  <span class="text-green-600 text-xl bg-green-50 px-3 py-1 rounded-full text-sm font-semibold" title="Onaylı öğretmen">✓ Onaylı</span>
+                {:else if teacher.approval_status === 'pending'}
+                  <span class="text-orange-600 text-xl bg-orange-50 px-3 py-1 rounded-full text-sm font-semibold" title="Onay bekliyor">⏳ Onay Bekliyor</span>
                 {/if}
               </h1>
               

@@ -19,14 +19,18 @@ CREATE TABLE IF NOT EXISTS users (
     role ENUM('student', 'parent', 'admin') NOT NULL DEFAULT 'student',
     avatar_url VARCHAR(255) DEFAULT NULL,
     email VARCHAR(100) DEFAULT NULL,
+    city VARCHAR(50) DEFAULT NULL,
+    zip_code VARCHAR(10) DEFAULT NULL,
     is_verified BOOLEAN DEFAULT 0 COMMENT 'Öğrenci belgesi onayı',
+    approval_status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved' COMMENT 'Hesap onay durumu',
     is_active BOOLEAN DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
     INDEX idx_phone (phone),
     INDEX idx_role (role),
-    INDEX idx_active (is_active)
+    INDEX idx_active (is_active),
+    INDEX idx_approval (approval_status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ===================================
@@ -175,20 +179,20 @@ ON DUPLICATE KEY UPDATE name=name;
 -- ===================================
 -- DEMO DATA - USERS (Teachers)
 -- ===================================
-INSERT INTO users (id, phone, password_hash, full_name, role, is_verified, is_active, avatar_url) VALUES
-(101, '+4915111111111', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Ahmet Yılmaz', 'student', 1, 1, 'https://randomuser.me/api/portraits/men/32.jpg'),
-(102, '+4915122222222', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Ayşe Demir', 'student', 1, 1, 'https://randomuser.me/api/portraits/women/44.jpg'),
-(103, '+4915133333333', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Mehmet Kaya', 'student', 1, 1, 'https://randomuser.me/api/portraits/men/85.jpg'),
-(104, '+4915144444444', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Zeynep Çelik', 'student', 1, 1, 'https://randomuser.me/api/portraits/women/68.jpg'),
-(105, '+4915155555555', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Can Yıldız', 'student', 0, 1, 'https://randomuser.me/api/portraits/men/12.jpg')
+INSERT INTO users (id, phone, password_hash, full_name, role, approval_status, city, zip_code, is_verified, is_active, avatar_url) VALUES
+(101, '+4915111111111', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Ahmet Yılmaz', 'student', 'approved', 'Berlin', '10115', 1, 1, 'https://randomuser.me/api/portraits/men/32.jpg'),
+(102, '+4915122222222', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Ayşe Demir', 'student', 'approved', 'München', '80331', 1, 1, 'https://randomuser.me/api/portraits/women/44.jpg'),
+(103, '+4915133333333', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Mehmet Kaya', 'student', 'pending', 'Aachen', '52062', 1, 1, 'https://randomuser.me/api/portraits/men/85.jpg'),
+(104, '+4915144444444', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Zeynep Çelik', 'student', 'approved', 'Hamburg', '20095', 1, 1, 'https://randomuser.me/api/portraits/women/68.jpg'),
+(105, '+4915155555555', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Can Yıldız', 'student', 'pending', 'Frankfurt', '60311', 0, 1, 'https://randomuser.me/api/portraits/men/12.jpg')
 ON DUPLICATE KEY UPDATE full_name=full_name;
 
 -- ===================================
 -- DEMO DATA - USERS (Parents)
 -- ===================================
-INSERT INTO users (id, phone, password_hash, full_name, role, is_active) VALUES
-(201, '+4916111111111', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Fatma Öztürk', 'parent', 1),
-(202, '+4916122222222', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Mustafa Arslan', 'parent', 1)
+INSERT INTO users (id, phone, password_hash, full_name, role, approval_status, is_active) VALUES
+(201, '+4916111111111', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Fatma Öztürk', 'parent', 'approved', 1),
+(202, '+4916122222222', '$2y$10$rJYQXQxQxQxQxQxQxQxQxuQxQxQxQxQxQxQxQxQxQxQxQxQ', 'Mustafa Arslan', 'parent', 'approved', 1)
 ON DUPLICATE KEY UPDATE full_name=full_name;
 
 -- ===================================

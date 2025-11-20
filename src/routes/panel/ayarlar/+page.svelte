@@ -17,11 +17,13 @@
     user = auth.user;
   });
 
+  import { toast } from '$lib/stores/toast.js';
+
   async function handleSave() {
     saving = true;
     // TODO: Implement API call to update profile
     await new Promise(r => setTimeout(r, 1000)); // Mock delay
-    alert('Profiliniz başarıyla güncellendi.');
+    toast.success('Profiliniz başarıyla güncellendi.');
     saving = false;
   }
   

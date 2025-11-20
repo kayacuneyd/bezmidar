@@ -1,0 +1,8 @@
+# Deny access to this directory
+Options -Indexes
+
+# Allow image files
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|pdf)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>

@@ -6,10 +6,9 @@ const config: CapacitorConfig = {
     webDir: 'build',
 
     server: {
-        androidScheme: 'https', // HTTPS şart (security)
-        // Development sırasında:
-        // url: 'http://192.168.1.100:5173',
-        // cleartext: true
+        androidScheme: 'https',
+        url: 'http://192.168.178.118:5176', // Live Reload
+        cleartext: true
     },
 
     plugins: {

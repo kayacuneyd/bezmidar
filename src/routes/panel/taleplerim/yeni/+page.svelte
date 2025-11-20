@@ -28,13 +28,16 @@
     subjects = res.data;
   });
 
+  import { toast } from '$lib/stores/toast.js';
+
   async function handleSubmit() {
     loading = true;
     try {
       await api.post('/requests/create.php', formData);
+      toast.success('Ders talebiniz başarıyla oluşturuldu.');
       goto('/panel/taleplerim');
     } catch (e) {
-      alert('Hata: ' + e.message);
+      toast.error('Hata: ' + e.message);
     } finally {
       loading = false;
     }

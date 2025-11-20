@@ -18,8 +18,14 @@
       
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center gap-6">
-        <a href="/ara" class="text-gray-700 hover:text-primary-600 font-medium transition">Öğretmen Bul</a>
-        <a href="/ders-talepleri" class="text-gray-700 hover:text-primary-600 font-medium transition">Ders Talepleri</a>
+        {#if user?.role === 'parent'}
+          <a href="/ara" class="text-gray-700 hover:text-primary-600 font-medium transition">Öğretmen Bul</a>
+        {:else if user?.role === 'student'}
+          <a href="/ders-talepleri" class="text-gray-700 hover:text-primary-600 font-medium transition">Ders Talepleri</a>
+        {:else}
+          <a href="/ara" class="text-gray-700 hover:text-primary-600 font-medium transition">Öğretmen Bul</a>
+          <a href="/ders-talepleri" class="text-gray-700 hover:text-primary-600 font-medium transition">Ders Talepleri</a>
+        {/if}
         <a href="/nasil-calisir" class="text-gray-700 hover:text-primary-600 font-medium transition">Nasıl Çalışır?</a>
         
         {#if isAuthenticated}
@@ -56,8 +62,15 @@
   {#if mobileMenuOpen}
     <div class="md:hidden border-t">
       <div class="container mx-auto px-4 py-4 flex flex-col gap-3">
-        <a href="/ara" class="py-2">Öğretmen Ara</a>
-        <a href="/hakkimizda" class="py-2">Hakkımızda</a>
+        {#if user?.role === 'parent'}
+          <a href="/ara" class="py-2">Öğretmen Bul</a>
+        {:else if user?.role === 'student'}
+          <a href="/ders-talepleri" class="py-2">Ders Talepleri</a>
+        {:else}
+          <a href="/ara" class="py-2">Öğretmen Bul</a>
+          <a href="/ders-talepleri" class="py-2">Ders Talepleri</a>
+        {/if}
+        <a href="/nasil-calisir" class="py-2">Nasıl Çalışır?</a>
         {#if isAuthenticated}
           <a href="/panel" class="py-2">Panelim</a>
           <button on:click={() => authStore.logout()} class="text-left py-2 text-red-600">

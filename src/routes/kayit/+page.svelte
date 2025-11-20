@@ -10,11 +10,15 @@
     full_name: '',
     phone: '',
     password: '',
-    role: role
+    role: role,
+    city: '',
+    zip_code: ''
   };
   
   let error = '';
   let loading = false;
+
+  import { toast } from '$lib/stores/toast.js';
 
   async function handleRegister() {
     loading = true;
@@ -24,13 +28,17 @@
       const response = await api.post('/auth/register.php', formData);
       authStore.login(response.data.user, response.data.token);
       
+      toast.success('Kayıt başarıyla oluşturuldu! Hoşgeldiniz.');
+      
       if (formData.role === 'student') {
         goto('/panel/ayarlar'); // Profilini doldurması için
       } else {
         goto('/panel');
       }
     } catch (e) {
-      error = e.message || 'Kayıt başarısız';
+      const msg = e.message || 'Kayıt başarısız';
+      error = msg;
+      toast.error(msg);
     } finally {
       loading = false;
     }
@@ -87,6 +95,28 @@
       />
     </div>
     
+    <div>
+      <label class="block text-sm font-medium mb-1">Şehir</label>
+      <input 
+        type="text" 
+        bind:value={formData.city}
+        class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        required
+        placeholder="Örn: Berlin"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Posta Kodu (PLZ)</label>
+      <input 
+        type="text" 
+        bind:value={formData.zip_code}
+        class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        required
+        placeholder="Örn: 10115"
+      />
+    </div>
+
     <div>
       <label class="block text-sm font-medium mb-1">Şifre</label>
       <input 
