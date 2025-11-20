@@ -1,6 +1,6 @@
 <script>
   import { authStore } from '$lib/stores/auth.js';
-  import { goto } from '$app/navigation';
+  import Button from '$lib/components/Button.svelte';
   
   let mobileMenuOpen = false;
   
@@ -8,39 +8,36 @@
   $: isAuthenticated = $authStore.isAuthenticated;
 </script>
 
-<nav class="bg-white shadow-sm sticky top-0 z-50">
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2">
         <img src="/logo.svg" alt="Bezmidar" class="h-8" />
-        <span class="font-bold text-xl text-blue-600">Bezmidar</span>
+        <span class="font-bold text-xl text-primary-600">Bezmidar</span>
       </a>
       
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center gap-6">
-        <a href="/ara" class="text-gray-600 hover:text-blue-600 font-medium">Öğretmen Bul</a>
-        <a href="/ders-talepleri" class="text-gray-600 hover:text-blue-600 font-medium">Ders Talepleri</a>
-        <a href="/nasil-calisir" class="text-gray-600 hover:text-blue-600 font-medium">Nasıl Çalışır?</a>
+        <a href="/ara" class="text-gray-700 hover:text-primary-600 font-medium transition">Öğretmen Bul</a>
+        <a href="/ders-talepleri" class="text-gray-700 hover:text-primary-600 font-medium transition">Ders Talepleri</a>
+        <a href="/nasil-calisir" class="text-gray-700 hover:text-primary-600 font-medium transition">Nasıl Çalışır?</a>
         
         {#if isAuthenticated}
-          <a href="/panel" class="text-gray-700 hover:text-blue-600">
+          <a href="/panel" class="text-gray-700 hover:text-primary-600 transition">
             👤 {user?.full_name}
           </a>
           <button 
             on:click={() => authStore.logout()}
-            class="text-red-600 hover:text-red-700"
+            class="text-error hover:text-error-600 font-medium transition"
           >
             Çıkış
           </button>
         {:else}
-          <a href="/giris" class="text-gray-700 hover:text-blue-600">Giriş</a>
-          <a 
-            href="/kayit" 
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-          >
+          <a href="/giris" class="text-gray-700 hover:text-primary-600 font-medium transition">Giriş</a>
+          <Button variant="primary" size="sm" href="/kayit">
             Kayıt Ol
-          </a>
+          </Button>
         {/if}
       </div>
       
