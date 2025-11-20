@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>Panelim - Bezmidar</title>
+  <title>Panelim - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8">
@@ -28,7 +28,7 @@
         <p><strong>Rol:</strong> {user?.role === 'student' ? 'Öğretmen' : 'Veli'}</p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
-        <button class="text-left text-blue-600 hover:underline">Profil Düzenle</button>
+        <a href="/panel/ayarlar" class="text-left text-blue-600 hover:underline">Profil Düzenle</a>
         {#if user?.role === 'parent'}
           <a href="/panel/taleplerim" class="text-left text-blue-600 hover:underline">Ders Taleplerim</a>
         {/if}
