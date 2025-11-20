@@ -4,8 +4,8 @@
       <!-- Logo & Tagline -->
       <div>
         <div class="flex items-center gap-2 mb-3">
-          <img src="/logo.svg" alt="Bezmidar" class="h-8" />
-          <span class="font-bold text-xl">Bezmidar</span>
+          <img src="/logo.svg" alt="DijitalMentor" class="h-8" />
+          <span class="font-bold text-xl">DijitalMentor</span>
         </div>
         <p class="text-gray-400 text-sm">
           Gurbet çocuklarına kendi dilinden öğretmen
@@ -48,7 +48,7 @@
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <!-- Copyright & Location -->
         <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-          <p>© 2025 Bezmidar. Tüm hakları saklıdır.</p>
+          <p>© 2025 DijitalMentor. Tüm hakları saklıdır.</p>
           <span class="hidden md:inline text-gray-700">•</span>
           <p class="flex items-center gap-1">
             <span>🏗️</span>

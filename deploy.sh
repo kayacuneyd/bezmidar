@@ -1,9 +1,24 @@
 #!/bin/bash
 
-# Bezmidar Deployment Script
+# DijitalMentor Deployment Script
 # Bu script kodu GitHub'a push edip hosting'e deploy eder
 
-echo "🚀 Bezmidar Deployment Başlıyor..."
+# Hata durumunda dur
+set -e
+
+SSH_KEY="$HOME/.ssh/bezmidar_deploy"
+SERVER_USER="u553245641"
+SERVER_IP="185.224.137.82"
+REMOTE_DIR="~/public_html"
+
+echo "🚀 DijitalMentor Deployment Başlıyor..."
+
+# SSH Key kontrolü
+if [ ! -f "$SSH_KEY" ]; then
+    echo "❌ Hata: SSH anahtarı bulunamadı: $SSH_KEY"
+    echo "Lütfen anahtarın doğru yerde olduğundan emin olun."
+    exit 1
+fi
 
 # 1. Git commit (opsiyonel mesaj)
 if [ -n "$1" ]; then
@@ -13,9 +28,14 @@ else
 fi
 
 echo "📝 Git commit: $COMMIT_MSG"
-git add .
-git commit -m "$COMMIT_MSG"
-git push origin master
+# Değişiklik varsa commit yap, yoksa devam et
+if [[ `git status --porcelain` ]]; then
+  git add .
+  git commit -m "$COMMIT_MSG"
+  git push origin master
+else
+  echo "ℹ️  Değişiklik yok, git push atlanıyor."
+fi
 
 # 2. Build
 echo "🔨 Build alınıyor..."
@@ -26,16 +46,16 @@ echo "📤 Hosting'e yükleniyor..."
 
 # Önce eski build dosyalarını temizle
 echo "🧹 Eski dosyalar temizleniyor..."
-ssh -p 65002 -i ~/.ssh/bezmidar_deploy -o StrictHostKeyChecking=no \
-  u553245641@185.224.137.82 \
-  "rm -rf ~/public_html/_app && rm -f ~/public_html/index.html ~/public_html/favicon.* ~/public_html/logo.svg ~/public_html/manifest.json"
+ssh -p 65002 -i "$SSH_KEY" -o StrictHostKeyChecking=no \
+  "$SERVER_USER@$SERVER_IP" \
+  "rm -rf $REMOTE_DIR/_app && rm -f $REMOTE_DIR/index.html $REMOTE_DIR/favicon.* $REMOTE_DIR/logo.svg $REMOTE_DIR/manifest.json"
 
 # Yeni dosyaları yükle
 echo "📦 Yeni dosyalar yükleniyor..."
 rsync -avz \
-  -e "ssh -p 65002 -i ~/.ssh/bezmidar_deploy -o StrictHostKeyChecking=no" \
+  -e "ssh -p 65002 -i $SSH_KEY -o StrictHostKeyChecking=no" \
   build/ \
-  u553245641@185.224.137.82:~/public_html/
+  "$SERVER_USER@$SERVER_IP:$REMOTE_DIR/"
 
-echo "✅ Deployment tamamlandı!"
-echo "🌐 Site: https://bezmidar.de"
+echo "✅ Deployment başarıyla tamamlandı!"
+echo "🌐 Site: https://dijitalmentor.de"

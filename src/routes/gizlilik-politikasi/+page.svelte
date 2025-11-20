@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Gizlilik Politikası - Bezmidar</title>
+  <title>Gizlilik Politikası - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-4xl">
@@ -11,7 +11,7 @@
     <section class="mb-8">
       <h2 class="text-xl font-bold mb-4">1. Veri Toplama</h2>
       <p class="text-gray-700">
-        Bezmidar olarak kişisel verilerinizin gizliliğine önem veriyoruz. Hizmetlerimizi kullanırken adınız, e-posta adresiniz, telefon numaranız ve konum bilgileriniz gibi verileri toplayabiliriz.
+        DijitalMentor olarak kişisel verilerinizin gizliliğine önem veriyoruz. Hizmetlerimizi kullanırken adınız, e-posta adresiniz, telefon numaranız ve konum bilgileriniz gibi verileri toplayabiliriz.
       </p>
     </section>
 
@@ -38,7 +38,7 @@
     <section class="mb-8">
       <h2 class="text-xl font-bold mb-4">4. İletişim</h2>
       <p class="text-gray-700">
-        Gizlilik politikamızla ilgili sorularınız için <a href="mailto:info@bezmidar.com" class="text-blue-600 hover:underline">info@bezmidar.com</a> adresinden bize ulaşabilirsiniz.
+        Gizlilik politikamızla ilgili sorularınız için <a href="mailto:info@dijitalmentor.de" class="text-blue-600 hover:underline">info@dijitalmentor.de</a> adresinden bize ulaşabilirsiniz.
       </p>
     </section>
   </div>

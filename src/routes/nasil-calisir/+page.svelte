@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Nasıl Çalışır? - Bezmidar</title>
+  <title>Nasıl Çalışır? - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-4xl">

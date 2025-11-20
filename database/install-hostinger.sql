@@ -1,11 +1,12 @@
 -- ===================================
--- BEZMIDAR DATABASE INSTALLATION (Hostinger Version)
+-- DIJITALMENTOR DATABASE INSTALLATION
 -- ===================================
--- Bu dosyayı phpMyAdmin'de u553245641_bezmidar veritabanını seçtikten sonra import edin
--- İlk CREATE DATABASE satırı kaldırılmıştır
+-- This file contains the complete database schema and initial data
+-- Run this file once to set up your database
+-- Character set: utf8mb4 for Turkish character support
 
--- Mevcut veritabanını kullan
-USE u553245641_bezmidar;
+-- CREATE DATABASE IF NOT EXISTS u553245641_dijitalmentor CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE u553245641_dijitalmentor;
 
 -- ===================================
 -- USERS TABLE

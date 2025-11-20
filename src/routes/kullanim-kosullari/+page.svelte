@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Kullanım Koşulları - Bezmidar</title>
+  <title>Kullanım Koşulları - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-4xl">
@@ -11,14 +11,14 @@
     <section class="mb-8">
       <h2 class="text-xl font-bold mb-4">1. Kabul Edilme</h2>
       <p class="text-gray-700">
-        Bezmidar platformunu kullanarak bu koşulları kabul etmiş sayılırsınız. Koşulları kabul etmiyorsanız lütfen platformu kullanmayınız.
+        DijitalMentor platformunu kullanarak bu koşulları kabul etmiş sayılırsınız. Koşulları kabul etmiyorsanız lütfen platformu kullanmayınız.
       </p>
     </section>
 
     <section class="mb-8">
       <h2 class="text-xl font-bold mb-4">2. Hizmet Tanımı</h2>
       <p class="text-gray-700">
-        Bezmidar, özel ders almak isteyen veliler ile ders vermek isteyen öğretmenleri bir araya getiren bir platformdur. Platform, derslerin içeriği veya kalitesi konusunda doğrudan sorumlu değildir.
+        DijitalMentor, özel ders almak isteyen veliler ile ders vermek isteyen öğretmenleri bir araya getiren bir platformdur. Platform, derslerin içeriği veya kalitesi konusunda doğrudan sorumlu değildir.
       </p>
     </section>
 

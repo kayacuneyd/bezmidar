@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Bezmidar - Gurbet Çocuklarına Özel Ders</title>
+  <title>DijitalMentor - Gurbet Çocuklarına Özel Ders</title>
   <meta name="description" content="Almanya'daki Türk ailelerini üniversiteli öğretmenlerle buluşturan platform" />
 </svelte:head>
 
@@ -38,7 +38,7 @@
 <!-- Features Grid -->
 <section class="py-20 bg-gray-50">
   <div class="container mx-auto px-4">
-    <h2 class="text-page text-center mb-4 text-gray-900">Neden Bezmidar?</h2>
+    <h2 class="text-page text-center mb-4 text-gray-900">Neden DijitalMentor?</h2>
     <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
       Almanya'daki Türk ailelerini üniversiteli öğretmenlerle buluşturan güvenilir platform
     </p>

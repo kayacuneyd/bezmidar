@@ -3,6 +3,10 @@
   import { browser } from '$app/environment';
   import 'leaflet/dist/leaflet.css';
 
+  import markerIcon from 'leaflet/dist/images/marker-icon.png';
+  import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+  import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
   export let teachers = [];
 
   let mapElement;
@@ -12,6 +16,14 @@
   onMount(async () => {
     if (browser) {
       const L = (await import('leaflet')).default;
+
+      // Fix marker icons
+      delete L.Icon.Default.prototype._getIconUrl;
+      L.Icon.Default.mergeOptions({
+          iconRetinaUrl: markerIcon2x,
+          iconUrl: markerIcon,
+          shadowUrl: markerShadow,
+      });
 
       // Default center (Germany)
       map = L.map(mapElement).setView([51.1657, 10.4515], 6);

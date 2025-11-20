@@ -1,6 +1,6 @@
 <?php
 $host = getenv('DB_HOST') ?: 'localhost';
-$dbname = getenv('DB_NAME') ?: 'bezmidar_db';
+$dbname = getenv('DB_NAME') ?: 'dijitalmentor_db';
 $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASS') ?: '';
 

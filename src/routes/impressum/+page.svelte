@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Impressum - Bezmidar</title>
+  <title>Impressum - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-4xl">
@@ -9,7 +9,7 @@
     <section class="mb-8">
       <h2 class="text-xl font-bold mb-4">Angaben gemäß § 5 TMG</h2>
       <p class="text-gray-700 leading-relaxed">
-        <strong>Bezmidar Platform</strong><br>
+        <strong>DijitalMentor Platform</strong><br>
         Musterstraße 123<br>
         10115 Berlin<br>
         Deutschland
@@ -20,7 +20,7 @@
       <h2 class="text-xl font-bold mb-4">Kontakt</h2>
       <p class="text-gray-700 leading-relaxed">
         Telefon: +49 (0) 123 456789<br>
-        E-Mail: <a href="mailto:info@bezmidar.com" class="text-blue-600 hover:underline">info@bezmidar.com</a>
+        E-Mail: <a href="mailto:info@dijitalmentor.de" class="text-blue-600 hover:underline">info@dijitalmentor.de</a>
       </p>
     </section>
 
