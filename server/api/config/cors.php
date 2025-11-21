@@ -1,17 +1,45 @@
 <?php
-// Allowed origins
+// Base allowed origins (app + api subdomain)
 $allowedOrigins = [
     'https://dijitalmentor.de',
-    'https://www.dijitalmentor.de'
+    'https://www.dijitalmentor.de',
+    'https://api.dijitalmentor.de'
 ];
+
+// Extra origins via env (comma separated)
+$extraOrigins = getenv('ALLOWED_ORIGINS') ?: '';
+if (!empty($extraOrigins)) {
+    $extraList = array_filter(array_map('trim', explode(',', $extraOrigins)));
+    $allowedOrigins = array_merge($allowedOrigins, $extraList);
+}
 
 // Optional: allow Vercel preview deployments when this env flag is true
 $allowVercelPreview = filter_var(getenv('ALLOW_VERCEL_PREVIEW_ORIGINS'), FILTER_VALIDATE_BOOLEAN);
+$allowLocalhost = filter_var(getenv('ALLOW_LOCALHOST_ORIGINS'), FILTER_VALIDATE_BOOLEAN);
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$originHost = $origin ? parse_url($origin, PHP_URL_HOST) : '';
+$currentHost = $_SERVER['HTTP_HOST'] ?? '';
+
 $isAllowed = in_array($origin, $allowedOrigins, true);
 
+// Same-host shortcut (fetch from api.dijitalmentor.de to api.dijitalmentor.de)
+if (!$isAllowed && $originHost && $currentHost && strcasecmp($originHost, $currentHost) === 0) {
+    $isAllowed = true;
+}
+
+// Allow Vercel preview (e.g. https://foo.vercel.app)
 if (!$isAllowed && $allowVercelPreview && preg_match('~^https://[a-z0-9-]+\\.vercel\\.app$~i', $origin)) {
+    $isAllowed = true;
+}
+
+// Allow localhost for dev if enabled
+if (
+    !$isAllowed &&
+    $allowLocalhost &&
+    $origin &&
+    preg_match('~^https?://localhost(?::\\d+)?$~i', $origin)
+) {
     $isAllowed = true;
 }
 

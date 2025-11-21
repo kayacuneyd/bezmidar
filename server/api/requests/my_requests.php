@@ -16,8 +16,11 @@ try {
     $stmt->execute([$user['id']]);
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode($requests);
+    echo json_encode([
+        'success' => true,
+        'data' => $requests
+    ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Veritabanı hatası']);
+    echo json_encode(['success' => false, 'error' => 'Veritabanı hatası']);
 }

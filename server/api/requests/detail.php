@@ -5,7 +5,7 @@ require_once '../config/auth.php';
 
 if (!isset($_GET['id'])) {
     http_response_code(400);
-    echo json_encode(['error' => 'ID gerekli']);
+    echo json_encode(['success' => false, 'error' => 'ID gerekli']);
     exit;
 }
 
@@ -22,12 +22,12 @@ try {
 
     if (!$request) {
         http_response_code(404);
-        echo json_encode(['error' => 'Talep bulunamadı']);
+        echo json_encode(['success' => false, 'error' => 'Talep bulunamadı']);
         exit;
     }
 
-    echo json_encode($request);
+    echo json_encode(['success' => true, 'data' => $request]);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Veritabanı hatası']);
+    echo json_encode(['success' => false, 'error' => 'Veritabanı hatası']);
 }

@@ -199,7 +199,24 @@ function buildUserResponse($userId)
             if (empty($user['zip_code']) && !empty($profile['zip_code'])) {
                 $user['zip_code'] = $profile['zip_code'];
             }
+
+            // Fetch subject info for teacher dashboards
+            $subjectsStmt = $pdo->prepare("
+                SELECT 
+                    s.id,
+                    s.name,
+                    s.slug,
+                    s.icon,
+                    ts.proficiency_level
+                FROM teacher_subjects ts
+                JOIN subjects s ON ts.subject_id = s.id
+                WHERE ts.teacher_id = ?
+            ");
+            $subjectsStmt->execute([$userId]);
+            $user['subjects'] = $subjectsStmt->fetchAll();
         }
+    } else {
+        $user['subjects'] = [];
     }
 
     return $user;

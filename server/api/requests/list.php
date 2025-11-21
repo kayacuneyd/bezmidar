@@ -47,14 +47,17 @@ try {
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
-        'requests' => $requests,
-        'pagination' => [
-            'total' => $total,
-            'page' => $page,
-            'pages' => ceil($total / $limit)
+        'success' => true,
+        'data' => [
+            'requests' => $requests,
+            'pagination' => [
+                'total' => $total,
+                'page' => $page,
+                'pages' => ceil($total / $limit)
+            ]
         ]
     ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Veritabanı hatası']);
+    echo json_encode(['success' => false, 'error' => 'Veritabanı hatası']);
 }

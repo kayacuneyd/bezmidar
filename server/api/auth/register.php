@@ -79,13 +79,27 @@ try {
     ]);
     $userId = $pdo->lastInsertId();
 
-    // If student, create profile
+    // If student, create profile with sensible defaults to avoid NULLs on UI
     if ($role === 'student') {
         $stmt = $pdo->prepare("
-            INSERT INTO teacher_profiles (user_id, city, zip_code)
-            VALUES (?, ?, ?)
+            INSERT INTO teacher_profiles (
+                user_id,
+                city,
+                zip_code,
+                bio,
+                hourly_rate,
+                experience_years,
+                total_students,
+                rating_avg,
+                review_count
+            )
+            VALUES (?, ?, ?, '', 20.00, 0, 0, 0.00, 0)
         ");
-        $stmt->execute([$userId, $city ?: null, $zipCode ?: null]);
+        $stmt->execute([
+            $userId,
+            $city ?: null,
+            $zipCode ?: null
+        ]);
     }
 
     $pdo->commit();
