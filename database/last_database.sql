@@ -7,6 +7,8 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- Drop existing tables if they exist (for clean install)
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS conversations;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS unlock_requests;
 DROP TABLE IF EXISTS lesson_requests;
@@ -213,6 +215,47 @@ INSERT INTO teacher_subjects (teacher_id, subject_id, proficiency_level) VALUES
 (5, 1, 'advanced');  -- Can - Matematik
 
 -- ===================================
+-- MESSAGING SYSTEM TABLES
+-- ===================================
+
+-- Conversations table: Stores metadata for each conversation between a teacher and parent
+CREATE TABLE IF NOT EXISTS conversations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    teacher_id INT NOT NULL,
+    parent_id INT NOT NULL,
+    last_message_text TEXT,
+    last_message_at TIMESTAMP NULL,
+    teacher_unread_count INT DEFAULT 0,
+    parent_unread_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE KEY uniq_conversation (teacher_id, parent_id),
+    INDEX idx_teacher (teacher_id),
+    INDEX idx_parent (parent_id),
+    INDEX idx_updated (updated_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Messages table: Stores individual messages within conversations
+CREATE TABLE IF NOT EXISTS messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    message_text TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_conversation (conversation_id),
+    INDEX idx_sender (sender_id),
+    INDEX idx_created (created_at),
+    INDEX idx_unread (conversation_id, is_read)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ===================================
 -- MIGRATION NOTES
 -- ===================================
 -- This schema includes all migrations:
@@ -221,9 +264,10 @@ INSERT INTO teacher_subjects (teacher_id, subject_id, proficiency_level) VALUES
 -- - cv_url for teacher CV uploads
 -- - city and zip_code fields for location-based search
 -- - unlock_requests table for iletişim talepleri
--- 
+-- - Messaging system (conversations and messages tables) - Added 2025-11-21
+--
 -- Password for demo users: 'password' (hashed with bcrypt)
--- 
+--
 -- To reset database: DROP DATABASE and run this script again
 -- ===================================
 

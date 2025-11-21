@@ -176,38 +176,8 @@ class APIClient {
         return { success: true, message: 'Talep oluşturuldu', data: newRequest };
       }
 
-      // Message Endpoints
-      if (endpoint.includes('/messages/list.php')) {
-        return { success: true, data: mockData.conversations };
-      }
-
-      if (endpoint.includes('/messages/detail.php')) {
-        const url = new URL(`http://dummy${endpoint}`);
-        const id = url.searchParams.get('id');
-        const messages = mockData.messages.filter(m => m.conversation_id == id);
-        return { success: true, data: messages };
-      }
-
-      if (endpoint.includes('/messages/send.php')) {
-        const body = JSON.parse(options.body);
-        const newMessage = {
-          id: Math.floor(Math.random() * 10000),
-          conversation_id: body.conversation_id,
-          sender_id: mockData.user.id,
-          text: body.text,
-          created_at: new Date().toISOString()
-        };
-        mockData.messages.push(newMessage);
-        
-        // Update conversation last message
-        const conv = mockData.conversations.find(c => c.id == body.conversation_id);
-        if (conv) {
-          conv.last_message = body.text;
-          conv.last_message_date = newMessage.created_at;
-        }
-        
-        return { success: true, data: newMessage };
-      }
+      // Message Endpoints - No longer mocked, use real API
+      // Removed mock implementations for /messages/* endpoints
 
       // Default success for other endpoints
       // Blog Endpoints

@@ -240,27 +240,5 @@ export const mockData = {
       likes: 32,
       comments: []
     }
-  ],
-  conversations: [
-    {
-      id: 1,
-      other_user: { id: 101, full_name: 'Ahmet Yılmaz', avatar_url: 'https://randomuser.me/api/portraits/men/32.jpg' },
-      last_message: 'Ders saati konusunda anlaştık mı?',
-      last_message_date: '2023-11-20T14:30:00',
-      unread_count: 1
-    },
-    {
-      id: 2,
-      other_user: { id: 104, full_name: 'Zeynep Çelik', avatar_url: 'https://randomuser.me/api/portraits/women/68.jpg' },
-      last_message: 'Merhaba, İngilizce dersi için müsaitliğiniz var mı?',
-      last_message_date: '2023-11-19T10:15:00',
-      unread_count: 0
-    }
-  ],
-  messages: [
-    { id: 1, conversation_id: 1, sender_id: 101, text: 'Merhaba, nasılsınız?', created_at: '2023-11-20T14:00:00' },
-    { id: 2, conversation_id: 1, sender_id: 201, text: 'İyiyim teşekkürler, siz?', created_at: '2023-11-20T14:05:00' },
-    { id: 3, conversation_id: 1, sender_id: 101, text: 'Ders saati konusunda anlaştık mı?', created_at: '2023-11-20T14:30:00' },
-    { id: 4, conversation_id: 2, sender_id: 201, text: 'Merhaba, İngilizce dersi için müsaitliğiniz var mı?', created_at: '2023-11-19T10:15:00' }
   ]
 };
