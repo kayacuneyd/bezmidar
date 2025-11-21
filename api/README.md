@@ -1,3 +1,7 @@
+# ⚠️ Legacy API (Deprecated)
+
+> Bu klasör yalnızca geçmiş sürümler içindir. Canlı ve geliştirme ortamında **/server/api** kullanılmalıdır. Yeni .env dosyalarınızda `PUBLIC_API_URL=https://dijitalmentor.de/server/api` olmalı.
+
 # Database Integration - README
 
 ## Setup Instructions
@@ -49,9 +53,9 @@ public_html/
 
 ### 5. Update Environment Variables
 
-In your `.env` file (or GitHub Actions secrets):
+In your `.env` file (or GitHub Actions secrets), point to the maintained API:
 ```
-PUBLIC_API_URL=https://dijitalmentor.de/api
+PUBLIC_API_URL=https://dijitalmentor.de/server/api
 PUBLIC_MOCK_MODE=false
 ```
 
@@ -90,7 +94,7 @@ PUBLIC_MOCK_MODE=true
 Set in `.env`:
 ```
 PUBLIC_MOCK_MODE=false
-PUBLIC_API_URL=https://dijitalmentor.de/api
+PUBLIC_API_URL=https://dijitalmentor.de/server/api
 ```
 
 ## Security Notes

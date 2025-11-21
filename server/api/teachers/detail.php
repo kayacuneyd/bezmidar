@@ -57,7 +57,7 @@ try {
     $stmt->execute([$id]);
     $teacher['reviews'] = $stmt->fetchAll();
 
-    $coords = getCityCoordinates($teacher['city'] ?? '');
+    $coords = getCityCoordinates($teacher['city'] ?? '', $teacher['zip_code'] ?? '');
     $teacher['lat'] = $coords['lat'];
     $teacher['lng'] = $coords['lng'];
 

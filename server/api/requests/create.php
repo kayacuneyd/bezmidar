@@ -1,10 +1,15 @@
 <?php
+require_once '../config/cors.php';
 require_once '../config/db.php';
 require_once '../config/auth.php';
+require_once '../config/rate_limit.php';
 
 $user = authenticate(['parent']);
 
 $data = json_decode(file_get_contents('php://input'), true);
+
+// Throttle creation to prevent abuse
+enforceRateLimit('requests:create', 30, 300);
 
 if (!isset($data['subject_id']) || !isset($data['title'])) {
     http_response_code(400);

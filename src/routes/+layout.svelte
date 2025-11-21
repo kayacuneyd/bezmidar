@@ -1,4 +1,9 @@
 <script>
+  // Accept props SvelteKit passes (even if unused) to avoid dev-time warnings
+  export let data;
+  export let form;
+  export let params;
+
   import '../app.css';
   import Navbar from '$lib/components/Navbar.svelte';
   import Footer from '$lib/components/Footer.svelte';

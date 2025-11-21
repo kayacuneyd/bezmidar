@@ -4,9 +4,27 @@
  * Basit JWT implementasyonu (composer-free)
  */
 
+function getJwtSecret()
+{
+    static $secret = null;
+    if ($secret !== null) {
+        return $secret;
+    }
+
+    $secret = getenv('JWT_SECRET');
+
+    if (empty($secret)) {
+        // Fail closed in production; fall back to a dev-only secret to avoid breaking local setups
+        $secret = 'DEV_INSECURE_SECRET_CHANGE_ME';
+        error_log('[dijitalmentor] JWT_SECRET is missing; using insecure fallback. Set JWT_SECRET in the environment.');
+    }
+
+    return $secret;
+}
+
 function generateToken($userId, $role)
 {
-    $secret = getenv('JWT_SECRET') ?: 'CHANGE_THIS_IN_PRODUCTION_12345678901234567890';
+    $secret = getJwtSecret();
 
     $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
     $payload = json_encode([
@@ -27,7 +45,7 @@ function generateToken($userId, $role)
 
 function verifyToken($token)
 {
-    $secret = getenv('JWT_SECRET') ?: 'CHANGE_THIS_IN_PRODUCTION_12345678901234567890';
+    $secret = getJwtSecret();
 
     $tokenParts = explode('.', $token);
     if (count($tokenParts) !== 3) {

@@ -88,7 +88,7 @@ try {
     $teachers = $stmt->fetchAll();
 
     foreach ($teachers as &$teacher) {
-        $coords = getCityCoordinates($teacher['city'] ?? '');
+        $coords = getCityCoordinates($teacher['city'] ?? '', $teacher['zip_code'] ?? '');
         $teacher['lat'] = $coords['lat'];
         $teacher['lng'] = $coords['lng'];
 

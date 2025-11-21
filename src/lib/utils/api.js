@@ -1,12 +1,16 @@
-import { PUBLIC_API_URL, PUBLIC_MOCK_MODE } from '$env/static/public';
+// Use dynamic env to avoid build-time failures when env vars are missing
+import { env as publicEnv } from '$env/dynamic/public';
 import { authStore } from '$lib/stores/auth.js';
 import { get } from 'svelte/store';
 import { mockData } from './mockData.js';
 
-const API_URL = PUBLIC_API_URL || 'http://localhost:8000/api';
-const MOCK_MODE = String(PUBLIC_MOCK_MODE).trim() === 'true';
+const API_URL = (publicEnv.PUBLIC_API_URL || 'https://dijitalmentor.de/server/api').replace(/\/$/, '');
+const MOCK_MODE = String(publicEnv.PUBLIC_MOCK_MODE || '').trim() === 'true';
+const IS_DEV = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV;
 
-console.log('API Config:', { API_URL, MOCK_MODE });
+if (IS_DEV) {
+  console.debug('API Config:', { API_URL, MOCK_MODE });
+}
 
 class APIClient {
   async request(endpoint, options = {}) {
@@ -235,7 +239,7 @@ class APIClient {
       if (!response.ok) throw new Error(data.error || 'Request failed');
       return data;
     } catch (error) {
-      console.error('API Error:', error);
+      if (IS_DEV) console.error('API Error:', error);
       throw error;
     }
   }

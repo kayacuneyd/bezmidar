@@ -1,4 +1,8 @@
 <script>
+  // Accept SvelteKit props to silence unknown prop warnings in dev
+  export let data;
+  export let params;
+
   import { onMount } from 'svelte';
   import { api } from '$lib/utils/api.js';
   import { fade } from 'svelte/transition';

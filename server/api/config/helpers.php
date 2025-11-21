@@ -1,7 +1,12 @@
 <?php
 
-function getCityCoordinates($city)
+function getCityCoordinates($city, $zipCode = '')
 {
+    $cityKey = strtolower(trim($city ?? ''));
+    $zipKey = strtolower(trim($zipCode ?? ''));
+    $cacheKey = $cityKey . '|' . $zipKey;
+
+    // Quick defaults as a last-resort fallback
     $defaults = [
         'berlin' => ['lat' => 52.52, 'lng' => 13.405],
         'münchen' => ['lat' => 48.1351, 'lng' => 11.5820],
@@ -26,10 +31,48 @@ function getCityCoordinates($city)
         'aachen' => ['lat' => 50.7753, 'lng' => 6.0839]
     ];
 
-    $key = strtolower(trim($city ?? ''));
+    // Return cached result if available
+    $cacheFile = sys_get_temp_dir() . '/dijitalmentor_geocode_cache.json';
+    if (file_exists($cacheFile)) {
+        $cache = json_decode(file_get_contents($cacheFile), true);
+        if (isset($cache[$cacheKey])) {
+            return $cache[$cacheKey];
+        }
+    } else {
+        $cache = [];
+    }
 
-    if (isset($defaults[$key])) {
-        return $defaults[$key];
+    // Build query for Nominatim (OpenStreetMap)
+    $query = trim($zipKey . ' ' . $cityKey);
+    if (!empty($query)) {
+        $url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=de&addressdetails=1&q=' . urlencode($query);
+        $context = stream_context_create([
+            'http' => [
+                'header' => "User-Agent: dijitalmentor-geocoder/1.0\r\n",
+                'timeout' => 3
+            ]
+        ]);
+
+        $response = @file_get_contents($url, false, $context);
+
+        if ($response !== false) {
+            $json = json_decode($response, true);
+            if (!empty($json[0]['lat']) && !empty($json[0]['lon'])) {
+                $coords = [
+                    'lat' => (float) $json[0]['lat'],
+                    'lng' => (float) $json[0]['lon']
+                ];
+
+                $cache[$cacheKey] = $coords;
+                file_put_contents($cacheFile, json_encode($cache));
+                return $coords;
+            }
+        }
+    }
+
+    // Static fallback when geocoding fails or no city provided
+    if (isset($defaults[$cityKey])) {
+        return $defaults[$cityKey];
     }
 
     return ['lat' => 52.52, 'lng' => 13.405];

@@ -6,25 +6,14 @@
  * For local development, use localhost settings
  */
 
-// Determine environment
-$isProduction = ($_SERVER['HTTP_HOST'] ?? '') === 'dijitalmentor.de';
+// Determine environment from env vars instead of hardcoding secrets
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'dijitalmentor_db');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
 
-if ($isProduction) {
-    // Production (Hostinger) settings
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', 'u553245641_dijitalmentor');
-    define('DB_USER', 'u553245641_dijitalmentor');
-    define('DB_PASS', 'Dijitalmentor1453!');
-} else {
-    // Local development settings
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', 'u553245641_dijitalmentor');
-    define('DB_USER', 'u553245641_dijitalmentor');
-    define('DB_PASS', 'Dijitalmentor1453!');
-}
-
-// JWT Secret for token generation
-define('JWT_SECRET', 'your-secret-key-change-this-in-production'); // TODO: Change this
+// JWT Secret for token generation (must be set in environment)
+define('JWT_SECRET', getenv('JWT_SECRET') ?: 'CHANGE_ME_IN_ENV');
 
 // File upload settings
 define('UPLOAD_DIR', __DIR__ . '/../../uploads/');
