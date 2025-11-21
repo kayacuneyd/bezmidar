@@ -1,4 +1,29 @@
 <?php
+// Load .env if the server doesn't populate env vars (shared hosting case)
+if (!function_exists('dm_load_env')) {
+    function dm_load_env($path)
+    {
+        if (!is_readable($path)) {
+            return;
+        }
+        $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || str_starts_with($line, '#') || !str_contains($line, '=')) {
+                continue;
+            }
+            [$key, $value] = array_map('trim', explode('=', $line, 2));
+            $value = trim($value, "\"'");
+            putenv("$key=$value");
+            $_ENV[$key] = $value;
+        }
+    }
+
+    $baseDir = realpath(__DIR__ . '/../..');
+    dm_load_env($baseDir . '/.env');
+    dm_load_env($baseDir . '/.env.local');
+}
+
 // Base allowed origins (app + api subdomain)
 $allowedOrigins = [
     'https://dijitalmentor.de',
