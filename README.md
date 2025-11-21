@@ -43,10 +43,14 @@ mysql -u u553245641_dijitalmentor -p u553245641_dijitalmentor < database/last_da
 
 **Lokal Geliştirme (`.env`):**
 ```env
-PUBLIC_API_URL=https://dijitalmentor.de/server/api
+PUBLIC_API_URL=https://api.dijitalmentor.de/server/api
 PUBLIC_SITE_URL=https://dijitalmentor.de
 PUBLIC_MOCK_MODE=false
 ```
+
+> **Not:** `PUBLIC_API_URL` değerini mutlaka tam bir URL olarak tanımlayın. Vercel üzerinde göreli bir yol (örn. `/server/api`)
+> kullanırsanız, frontend barındırıldığı hostta karşılığı olmadığı için 404 sayfasına düşer. `https://api.dijitalmentor.de/server/api`
+> ya da kullandığınız API domainini eksiksiz yazın.
 
 **Production (GitHub Actions):**
 - `.github/workflows/deploy.yml` dosyasında ayarlı

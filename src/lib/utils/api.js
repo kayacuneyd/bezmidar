@@ -4,7 +4,19 @@ import { authStore } from '$lib/stores/auth.js';
 import { get } from 'svelte/store';
 import { mockData } from './mockData.js';
 
-const API_URL = (publicEnv.PUBLIC_API_URL || 'https://dijitalmentor.de/server/api').replace(/\/$/, '');
+const DEFAULT_API_BASE = 'https://api.dijitalmentor.de/server/api';
+const rawApiBase = (publicEnv.PUBLIC_API_URL || '').trim();
+
+// Normalize API base to always be absolute. Vercel returns a 404 page if the
+// client tries to call a relative path like "/server/api" because there is no
+// matching route on the static frontend host.
+const API_URL = (
+  rawApiBase
+    ? /^https?:\/\//i.test(rawApiBase)
+      ? rawApiBase
+      : `https://api.dijitalmentor.de${rawApiBase.startsWith('/') ? '' : '/'}${rawApiBase}`
+    : DEFAULT_API_BASE
+).replace(/\/$/, '');
 const MOCK_MODE = String(publicEnv.PUBLIC_MOCK_MODE || '').trim() === 'true';
 const IS_DEV = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV;
 
