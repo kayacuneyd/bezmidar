@@ -1,43 +1,29 @@
-name: Deploy to Shared Hosting
+name: Deploy API to Hostinger
 
 on:
   push:
-    branches:
-      - master  # Sadece main branch'e push atınca çalışsın
+    branches: [master]
+    paths:
+      - "server/api/**"
+      - ".github/workflows/deploy.yml"
 
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  deploy-api:
+    name: Deploy API
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+      - name: 📂 Deploy API via SFTP
+        uses: easingthemes/ssh-deploy@v4.1.8
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "server/api/"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: "public_html/server/api/"
 
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-
-    - name: 📦 Install Dependencies
-      run: npm install
-
-    - name: 🛠️ Build Project
-      run: npm run build
-      env:
-        PUBLIC_API_URL: https://dijitalmentor.de/server/api
-        PUBLIC_MOCK_MODE: false
-      # Bu komut sveltekit output'unu 'build' klasörüne çıkarır
-
-    - name: 📂 Sync files via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./build/    # SvelteKit'in oluşturduğu klasör
-        server-dir: ./public_html/  # Sunucudaki hedef klasör (Dikkat!)
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/**
-          api/** # DİKKAT: Backend (PHP) klasörünü silmemesi için bunu hariç tutun!
+      - name: ✅ Deployment Successful
+        run: echo "API deployed successfully to Hostinger!"
