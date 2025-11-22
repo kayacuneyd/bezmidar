@@ -24,12 +24,12 @@
         <Button variant="secondary" size="lg" href="/ara">
           🔍 Öğretmen Ara
         </Button>
-        <button 
-          on:click={() => window.location.href = '/kayit?role=student'}
+        <a
+          href="/kayit?role=student"
           class="px-8 py-4 text-lg rounded-xl font-semibold border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-200"
         >
           ✨ Öğretmen Ol
-        </button>
+        </a>
       </div>
     </div>
   </div>
