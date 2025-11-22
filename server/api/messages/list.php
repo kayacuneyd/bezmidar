@@ -24,15 +24,15 @@ try {
 
     error_log("Query field: $userField = $userId");
 
-    // Get all conversations for this user
-    $stmt = $pdo->prepare("
+    // Build SQL query with dynamic field names (safe because we control these values)
+    $sql = "
         SELECT
             c.id,
             c.teacher_id,
             c.parent_id,
             c.last_message_text,
             c.last_message_at,
-            c.$unreadField as unread_count,
+            c.{$unreadField} as unread_count,
             c.created_at,
             c.updated_at,
             u.id as other_user_id,
@@ -41,11 +41,15 @@ try {
             tp.hourly_rate,
             tp.rating_avg
         FROM conversations c
-        INNER JOIN users u ON u.id = c.$otherField
-        LEFT JOIN teacher_profiles tp ON tp.user_id = c.$otherField AND u.role = 'student'
-        WHERE c.$userField = ?
+        INNER JOIN users u ON u.id = c.{$otherField}
+        LEFT JOIN teacher_profiles tp ON tp.user_id = c.{$otherField} AND u.role = 'student'
+        WHERE c.{$userField} = ?
         ORDER BY c.updated_at DESC
-    ");
+    ";
+
+    error_log("SQL Query: " . $sql);
+
+    $stmt = $pdo->prepare($sql);
 
     $stmt->execute([$userId]);
     $conversations = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -82,10 +86,19 @@ try {
     ]);
 
 } catch (PDOException $e) {
-    error_log("Database error in messages/list.php: " . $e->getMessage());
+    error_log("=== Database Error in messages/list.php ===");
+    error_log("Error Message: " . $e->getMessage());
+    error_log("Error Code: " . $e->getCode());
+    error_log("SQL State: " . ($e->errorInfo[0] ?? 'N/A'));
+    error_log("Stack Trace: " . $e->getTraceAsString());
+
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Database error occurred'
+        'error' => 'Database error occurred',
+        'debug' => [
+            'message' => $e->getMessage(),
+            'sql_state' => $e->errorInfo[0] ?? null
+        ]
     ]);
 }

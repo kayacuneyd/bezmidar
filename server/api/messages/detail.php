@@ -34,11 +34,15 @@ try {
 
     error_log("Checking: $userField = $userId for conversation $conversationId");
 
-    $stmt = $pdo->prepare("
+    $sql = "
         SELECT id, teacher_id, parent_id
         FROM conversations
-        WHERE id = ? AND $userField = ?
-    ");
+        WHERE id = ? AND {$userField} = ?
+    ";
+
+    error_log("SQL Query: " . $sql);
+
+    $stmt = $pdo->prepare($sql);
     $stmt->execute([$conversationId, $userId]);
     $conversation = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -106,11 +110,12 @@ try {
     $stmt->execute([$conversationId, $userId]);
 
     // Reset unread count for this user
-    $stmt = $pdo->prepare("
+    $sql = "
         UPDATE conversations
-        SET $unreadField = 0
+        SET {$unreadField} = 0
         WHERE id = ?
-    ");
+    ";
+    $stmt = $pdo->prepare($sql);
     $stmt->execute([$conversationId]);
 
     // Get other user info
