@@ -18,13 +18,14 @@
   $: canAccessProfile = !$authStore.isAuthenticated || $authStore.user?.role !== 'student';
 </script>
 
+<div class="relative">
 {#if canAccessProfile}
   <a
     href="/profil/{teacher.id}"
     class="block bg-white rounded-card shadow-card hover:shadow-card-hover transition-all border border-gray-100 p-6 group"
   >
 {:else}
-  <div class="block bg-white rounded-card shadow-card border border-gray-100 p-6 opacity-50 cursor-not-allowed relative">
+  <div class="block bg-white rounded-card shadow-card border border-gray-100 p-6 opacity-50 cursor-not-allowed">
 {/if}
   <div class="flex gap-4">
     <!-- Avatar -->
@@ -116,17 +117,18 @@
     </div>
   </div>
 
-  {#if !canAccessProfile}
-    <!-- Overlay for teachers -->
-    <div class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90 rounded-card">
-      <div class="text-center px-4">
-        <p class="text-sm font-semibold text-yellow-800">⚠️ Öğretmen profilleri sadece veliler tarafından görüntülenebilir</p>
-      </div>
-    </div>
-  {/if}
-
 {#if canAccessProfile}
-</a>
+  </a>
 {:else}
-</div>
+  </div>
 {/if}
+
+{#if !canAccessProfile}
+  <!-- Overlay for teachers -->
+  <div class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90 rounded-card">
+    <div class="text-center px-4">
+      <p class="text-sm font-semibold text-yellow-800">⚠️ Öğretmen profilleri sadece veliler tarafından görüntülenebilir</p>
+    </div>
+  </div>
+{/if}
+</div>
