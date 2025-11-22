@@ -1,3 +1,12 @@
+<script>
+  import { authStore } from '$lib/stores/auth.js';
+
+  $: user = $authStore.user;
+  $: role = user?.role;
+  $: showFindTeacher = role !== 'student';
+  $: showLessonRequests = role !== 'parent';
+</script>
+
 <footer class="bg-gray-900 text-white mt-auto">
   <div class="container mx-auto px-4 py-8">
     <div class="grid md:grid-cols-4 gap-8">
@@ -15,7 +24,12 @@
       <div>
         <h4 class="font-semibold mb-3">Platform</h4>
         <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="/ara" class="hover:text-white">Öğretmen Ara</a></li>
+          {#if showFindTeacher}
+            <li><a href="/ara" class="hover:text-white">Öğretmen Ara</a></li>
+          {/if}
+          {#if showLessonRequests}
+            <li><a href="/ders-talepleri" class="hover:text-white">Ders Talepleri</a></li>
+          {/if}
           <li><a href="/kayit?role=student" class="hover:text-white">Öğretmen Ol</a></li>
           <li><a href="/hakkimizda" class="hover:text-white">Hakkımızda</a></li>
         </ul>
