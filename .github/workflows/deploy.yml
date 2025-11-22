@@ -5,7 +5,7 @@ on:
     branches: [master]
     paths:
       - "server/api/**"
-      - ".github/workflows/deploy-api.yml"
+      - ".github/workflows/deploy.yml"
 
 jobs:
   deploy-api:
@@ -14,24 +14,16 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
+      - name: 📂 Deploy API via SFTP
+        uses: easingthemes/ssh-deploy@v4.1.8
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "server/api/"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: "public_html/server/api/"
 
-      - name: 🔑 Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: 📂 Deploy API via SFTP/SSH
-        run: |
-          # Create .ssh directory
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-
-          # Add host to known_hosts
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-
-          # Deploy using rsync
-          rsync -avz --delete \
-            -e "ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no" \
-            server/api/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/public_html/server/api/
+      - name: ✅ Deployment Successful
+        run: echo "API deployed successfully to Hostinger!"
