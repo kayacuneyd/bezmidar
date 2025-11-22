@@ -11,7 +11,12 @@ if (!isset($_GET['id'])) {
 
 try {
     $stmt = $pdo->prepare("
-        SELECT r.*, s.name as subject_name, u.full_name as parent_name, u.avatar_url as parent_avatar
+        SELECT
+            r.*,
+            s.name as subject_name,
+            u.id as parent_id,
+            u.full_name as parent_name,
+            u.avatar_url as parent_avatar
         FROM lesson_requests r
         JOIN subjects s ON r.subject_id = s.id
         JOIN users u ON r.parent_id = u.id
@@ -26,8 +31,14 @@ try {
         exit;
     }
 
+    // Cast numeric fields to appropriate types
+    $request['parent_id'] = (int)$request['parent_id'];
+    $request['id'] = (int)$request['id'];
+    $request['subject_id'] = (int)$request['subject_id'];
+
     echo json_encode(['success' => true, 'data' => $request]);
 } catch (PDOException $e) {
+    error_log("Error in requests/detail.php: " . $e->getMessage());
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Veritabanı hatası']);
 }
