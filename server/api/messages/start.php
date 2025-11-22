@@ -10,8 +10,15 @@ try {
     $userId = isset($user['user_id']) ? (int) $user['user_id'] : (int) ($user['id'] ?? 0);
     $userRole = $user['role'];
 
+    // Debug logging
+    error_log("=== Conversation Start Request ===");
+    error_log("User ID: $userId");
+    error_log("User Role: $userRole");
+    error_log("User Data: " . json_encode($user));
+
     // Get JSON input
     $input = json_decode(file_get_contents('php://input'), true);
+    error_log("Input Data: " . json_encode($input));
 
     if (!isset($input['other_user_id'])) {
         http_response_code(400);
@@ -91,6 +98,8 @@ try {
     $teacherId = ($userRole === 'student') ? $userId : $otherUserId;
     $parentId = ($userRole === 'parent') ? $userId : $otherUserId;
 
+    error_log("Creating conversation: teacher_id=$teacherId, parent_id=$parentId");
+
     // Check if conversation already exists
     $stmt = $pdo->prepare("
         SELECT id FROM conversations
@@ -135,10 +144,34 @@ try {
     ]);
 
 } catch (PDOException $e) {
-    error_log("Database error in messages/start.php: " . $e->getMessage());
+    // Enhanced error logging
+    error_log("=== Database Error in messages/start.php ===");
+    error_log("Error Message: " . $e->getMessage());
+    error_log("Error Code: " . $e->getCode());
+    error_log("SQL State: " . ($e->errorInfo[0] ?? 'N/A'));
+    error_log("Stack Trace: " . $e->getTraceAsString());
+
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Database error occurred'
+        'error' => 'Database error occurred',
+        'debug' => [
+            'message' => $e->getMessage(),
+            'code' => $e->getCode(),
+            'sql_state' => $e->errorInfo[0] ?? null
+        ]
+    ]);
+} catch (Exception $e) {
+    error_log("=== General Error in messages/start.php ===");
+    error_log("Error: " . $e->getMessage());
+    error_log("Stack Trace: " . $e->getTraceAsString());
+
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'error' => 'An error occurred',
+        'debug' => [
+            'message' => $e->getMessage()
+        ]
     ]);
 }
