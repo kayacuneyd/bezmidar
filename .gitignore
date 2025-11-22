@@ -50,3 +50,5 @@ capacitor.config.json
 .temp/
 deploy_key.pub
 deploy_key
+
+git.txt

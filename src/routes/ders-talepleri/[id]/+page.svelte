@@ -34,17 +34,25 @@
 
     startingConversation = true;
     try {
+      console.log('Starting conversation with parent_id:', request.parent_id);
+      console.log('Current user:', $authStore.user);
+
       const response = await api.post('/messages/start.php', {
         other_user_id: request.parent_id
       });
 
+      console.log('Start conversation response:', response);
+
       if (response.success) {
         // Redirect to messages page with the conversation
         goto(`/panel/mesajlar?conversation_id=${response.data.conversation_id}`);
+      } else {
+        alert(`Mesajlaşma başlatılamadı: ${response.message || 'Bilinmeyen hata'}`);
       }
     } catch (e) {
       console.error('Conversation start error:', e);
-      alert('Mesajlaşma başlatılamadı. Lütfen tekrar deneyin.');
+      console.error('Error details:', e.message, e.stack);
+      alert(`Mesajlaşma başlatılamadı: ${e.message || 'Lütfen tekrar deneyin.'}`);
     } finally {
       startingConversation = false;
     }
