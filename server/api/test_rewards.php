@@ -26,8 +26,8 @@ try {
     $convId = $pdo->lastInsertId();
 
     // 4. Create an accepted agreement
-    $stmt = $pdo->prepare("INSERT INTO lesson_agreements (conversation_id, sender_id, hourly_rate, status) VALUES (?, ?, 10, 'accepted')");
-    $stmt->execute([$convId, $teacherId]);
+    $stmt = $pdo->prepare("INSERT INTO lesson_agreements (conversation_id, sender_id, recipient_id, hourly_rate, status) VALUES (?, ?, ?, 10, 'accepted')");
+    $stmt->execute([$convId, $teacherId, $parentId]);
     $agreementId = $pdo->lastInsertId();
 
     // 5. Log hours (Simulate track_hours.php logic)
