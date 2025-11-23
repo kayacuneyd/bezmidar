@@ -42,6 +42,27 @@ try {
 
     if (!$githubToken) {
         echo "WARNING: GITHUB_TOKEN is missing. Automatic generation will NOT work.\n";
+    } else {
+        // Verify GitHub Token & Repo
+        $repo = getenv('GITHUB_REPO') ?: 'thomasmuentzer/dijitalmentor';
+        echo "Checking GitHub Repo: $repo\n";
+
+        $ch = curl_init("https://api.github.com/repos/$repo");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $githubToken,
+            'User-Agent: DijitalMentor-Test'
+        ]);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode === 200) {
+            echo "GitHub API Check: SUCCESS (Repo accessible)\n";
+        } else {
+            echo "GitHub API Check: FAILED (HTTP $httpCode)\n";
+            echo "Response: " . substr($response, 0, 200) . "...\n";
+        }
     }
 
     // 3. Cleanup
