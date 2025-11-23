@@ -20,8 +20,10 @@ git push origin master
 # 2️⃣ Rsync ile dosyaları Hostinger sunucusuna gönder
 echo "🚀 Dosyalar Hostinger'a yükleniyor..."
 
-rsync -avz -e "ssh -p 65002" ./server/api/ \
-u553245641@185.224.137.82:/home/u553245641/domains/dijitalmentor.de/public_html/api_root/server/api/
+# rsync -avz -e "ssh -p 65002" ./server/api/ \
+# u553245641@185.224.137.82:/home/u553245641/domains/dijitalmentor.de/public_html/api_root/server/api/
+
+rsync -avz --update --progress --delete -e "ssh -p 65002" ./server/api/ u553245641@185.224.137.82:/home/u553245641/domains/dijitalmentor.de/public_html/api_root/server/api/
 
 # 3️⃣ Sonuç bildirimi
 if [ $? -eq 0 ]; then

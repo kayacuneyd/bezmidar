@@ -5,6 +5,9 @@
   import Toast from '$lib/components/Toast.svelte';
   import { onMount } from 'svelte';
   import { authStore } from '$lib/stores/auth.js';
+  import { injectAnalytics } from '@vercel/analytics/sveltekit';
+
+  injectAnalytics();
   
   onMount(() => authStore.checkAuth());
 </script>

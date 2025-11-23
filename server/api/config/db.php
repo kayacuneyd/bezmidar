@@ -22,19 +22,40 @@ function loadDotEnv($path)
     return true;
 }
 
+function loadEnvUpwards($startDir, $maxDepth = 5)
+{
+    $loaded = [];
+    $dir = $startDir;
+    for ($i = 0; $i <= $maxDepth; $i++) {
+        if (!$dir) {
+            break;
+        }
+        if (loadDotEnv($dir . '/.env')) {
+            $loaded[] = $dir . '/.env';
+        }
+        if (loadDotEnv($dir . '/.env.local')) {
+            $loaded[] = $dir . '/.env.local';
+        }
+        $parent = realpath($dir . '/..');
+        if ($parent === $dir || !$parent) {
+            break;
+        }
+        $dir = $parent;
+    }
+    return $loaded;
+}
+
 // Try to load env files relative to repo root
 $baseDir = realpath(__DIR__ . '/../../');
 $loadedFiles = [];
 
 if ($baseDir) {
-    if (loadDotEnv($baseDir . '/.env')) $loadedFiles[] = $baseDir . '/.env';
-    if (loadDotEnv($baseDir . '/.env.local')) $loadedFiles[] = $baseDir . '/.env.local';
+    $loadedFiles = array_merge($loadedFiles, loadEnvUpwards($baseDir, 3));
 }
-
-// Fallback: one level higher (useful if app is inside api_root/server)
+// Additional upward search from one level higher (covers api_root/server)
 $altDir = realpath(__DIR__ . '/../../../');
 if ($altDir) {
-    if (loadDotEnv($altDir . '/.env')) $loadedFiles[] = $altDir . '/.env';
+    $loadedFiles = array_merge($loadedFiles, loadEnvUpwards($altDir, 2));
 }
 
 // Read database credentials from environment variables
