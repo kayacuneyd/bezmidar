@@ -3,7 +3,7 @@
 function loadDotEnv($path)
 {
     if (!is_readable($path)) {
-        return;
+        return false;
     }
 
     $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -19,12 +19,23 @@ function loadDotEnv($path)
         putenv("$key=$value");
         $_ENV[$key] = $value;
     }
+    return true;
 }
 
 // Try to load env files relative to repo root
 $baseDir = realpath(__DIR__ . '/../../');
-loadDotEnv($baseDir . '/.env');
-loadDotEnv($baseDir . '/.env.local');
+$loadedFiles = [];
+
+if ($baseDir) {
+    if (loadDotEnv($baseDir . '/.env')) $loadedFiles[] = $baseDir . '/.env';
+    if (loadDotEnv($baseDir . '/.env.local')) $loadedFiles[] = $baseDir . '/.env.local';
+}
+
+// Fallback: one level higher (useful if app is inside api_root/server)
+$altDir = realpath(__DIR__ . '/../../../');
+if ($altDir) {
+    if (loadDotEnv($altDir . '/.env')) $loadedFiles[] = $altDir . '/.env';
+}
 
 // Read database credentials from environment variables
 // Production: Set these in .env file on Hostinger
@@ -51,7 +62,7 @@ if ((!$envHost || !$envName || $envUser === false) && $databaseUrl) {
 // Require environment variables - no hardcoded fallbacks for security
 if (empty($envHost) || empty($envName) || $envUser === false) {
     http_response_code(500);
-    error_log('[dijitalmentor] Database configuration missing. Set DB_HOST, DB_NAME, DB_USER, DB_PASS in .env file.');
+    error_log('[dijitalmentor] Database configuration missing. Set DB_HOST, DB_NAME, DB_USER, DB_PASS in .env file. Tried env files: ' . json_encode($loadedFiles));
     die(json_encode(['error' => 'Database configuration missing']));
 }
 
