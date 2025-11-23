@@ -38,9 +38,10 @@
 
 <div class="container mx-auto px-4 py-12 max-w-6xl">
   <div class="text-center mb-16">
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">İletişime Geçin</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Yardıma mı İhtiyacınız Var?</h1>
     <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-      Sorularınız, önerileriniz veya destek talepleriniz için bize her zaman ulaşabilirsiniz.
+      Duyurular, ödül adayları, şikayetler veya topluluk iş birlikleri için bize her zaman ulaşabilirsiniz.
+      Geri bildiriminiz hem mentorları hem de platformu geliştiriyor.
     </p>
   </div>
 
@@ -48,7 +49,7 @@
     
     <!-- Contact Info -->
     <div class="bg-blue-50 rounded-2xl p-8 md:p-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8">İletişim Bilgileri</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Nasıl Yardım Edebiliriz?</h2>
       
       <div class="space-y-8">
         <div class="flex items-start gap-4">
@@ -74,7 +75,7 @@
             <p class="text-gray-600">
               <a href="mailto:info@dijitalmentor.de" class="hover:text-blue-600 transition">info@dijitalmentor.de</a>
             </p>
-            <p class="text-sm text-gray-500 mt-1">Genellikle 24 saat içinde yanıt veriyoruz.</p>
+            <p class="text-sm text-gray-500 mt-1">Destek hattımız 24 saat içinde dönüş yapar.</p>
           </div>
         </div>
 
@@ -93,7 +94,7 @@
       </div>
 
       <div class="mt-12 pt-8 border-t border-blue-200">
-        <h3 class="font-bold text-gray-900 mb-4">Sosyal Medya</h3>
+        <h3 class="font-bold text-gray-900 mb-4">Destek & Topluluk</h3>
         <div class="flex gap-4">
           <a
             href="https://instagram.com/dijitalmentor"
@@ -197,7 +198,7 @@
             rows="5"
             bind:value={form.message}
             class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-            placeholder="Mesajınızı buraya yazın..."
+            placeholder="Taleplerinizi, ihbarlarınızı ya da iş birliği önerilerinizi yazın..."
           ></textarea>
         </div>
 

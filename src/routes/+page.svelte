@@ -3,10 +3,10 @@
 </script>
 
 <svelte:head>
-  <title>DijitalMentor - Diaspora Gençliğine Mentor Desteği</title>
+  <title>DijitalMentor - Gurbet Çocuklarına Kendi Dilinden Mentorlar</title>
   <meta
     name="description"
-    content="Avrupa'daki Türk diasporasını, çocuklarına hem ders hem de mentorluk verebilen üniversiteli rol modellerle buluşturan platform."
+    content="DijitalMentor, Almanya’daki Türk diasporasına hem akademik destek hem de rol model mentorluk sunan güvenilir topluluk platformudur."
   />
   <!-- JSON-LD Structured Data -->
   {@html `<script type="application/ld+json">
@@ -34,16 +34,22 @@
   <div class="container mx-auto px-4 py-12 md:py-20">
     <div class="flex flex-col md:flex-row items-center gap-12">
       <div class="w-full md:w-1/2 text-center md:text-left">
-        <h1 class="text-hero mb-6 leading-tight">
-          Çocuğunuzun dilinden anlayan mentorlar
+        <h1 class="text-hero mb-4 leading-tight">
+          Gurbet çocuklarına kendi dilinden mentorlar
         </h1>
         <p class="text-xl md:text-2xl mb-4 text-primary-100 font-medium">
-          TU Munich, RWTH Aachen, ODTÜ, Boğaziçi’li rol modellerle tanışın
+          Türkiye ve Avrupa’nın seçkin üniversitelerinden rol modellerle eğitimde güvenli bir köprü kuruyoruz.
         </p>
-        <p class="text-lg mb-10 text-primary-200 max-w-lg mx-auto md:mx-0">
-          Diaspora gençliği okul sisteminde yalnız kalmasın; hem derslerinde destek alsın
-          hem de “Ben de yapabilirim” diyebileceği bir yol arkadaşı olsun.
+        <p class="text-lg mb-6 text-primary-200 max-w-lg mx-auto md:mx-0">
+          DijitalMentor’da veliler ders desteği değil, aidiyet hissi sunan bir topluluk deneyimi kazanır.
+          Öğrenciler hem akademik hem kişisel gelişim için ilham verici mentorlarla büyür.
         </p>
+        <ul class="text-left text-base md:text-lg text-primary-100 space-y-2 mb-8 max-w-md">
+          <li>✅ Onaylı, kimliği ve üniversite belgeleri doğrulanmış mentorlar</li>
+          <li>🤝 Rol model desteği ve kültürel bağları güçlendiren programlar</li>
+          <li>💸 Komisyonsuz ödeme; ders planı ve ücretleri doğrudan mentorla belirleyin</li>
+          <li>📍 Yerel ve online mentorlar; PLZ filtreleriyle en yakınını bulun</li>
+        </ul>
         <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <Button variant="secondary" size="lg" href="/ara">
             🔍 Öğretmen Bul
@@ -75,44 +81,71 @@
       Avrupa Türk Diasporası için hem akademik destek hem de rol model mentorluk sağlayan güvenilir platform.
     </p>
     
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
-        <div class="text-5xl mb-4">✅</div>
-        <h3 class="text-card mb-3 text-gray-900">Onaylı Mentorlar</h3>
-        <p class="text-gray-600">
-          Üniversite belgesi kontrol edilmiş, geçmişi doğrulanmış ve yalnızca onaylanan mentorlar listelenir.
-        </p>
-      </div>
-      
-      <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
-        <div class="text-5xl mb-4">💰</div>
-        <h3 class="text-card mb-3 text-gray-900">Erişilebilir Ücretler</h3>
-        <p class="text-gray-600">
-          Saatte ortalama €15–25 aralığında, ailenizin bütçesine uygun esnek ücretlendirme.
-        </p>
-      </div>
-      
-      <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
-        <div class="text-5xl mb-4">🇹🇷</div>
-        <h3 class="text-card mb-3 text-gray-900">Diaspora'nın Gücü</h3>
-        <p class="text-gray-600">
-          Çocuğunuzun yaşadığı zorlukları yaşamış, aynı dili ve kültürü paylaşan rol modeller.
-        </p>
-      </div>
-      
-      <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
-        <div class="text-5xl mb-4">📍</div>
-        <h3 class="text-card mb-3 text-gray-900">Size En Yakın Mentor</h3>
-        <p class="text-gray-600">
-          PLZ koduna göre hem yüz yüze ders için yakınınızdaki hem de online ders için uygun mentorları görüntüleyin.
-        </p>
+      <div class="grid md:grid-cols-2 gap-8">
+        {#each [
+          {
+            title: 'Onaylı Mentorlar',
+            icon: '🛡️',
+            text: 'Kimlik ve üniversite belgeleri doğrulanmış mentorlarımız, güvenli bir eğitim deneyimi sunar.'
+          },
+          {
+            title: 'Rol Model Desteği',
+            icon: '🤝',
+            text: 'Türkçe konuşan mentorlar hem ders hem de özgüven geliştiren rol model olarak öğrencilerin yanında.'
+          },
+          {
+            title: 'Projeye Odaklı Topluluk',
+            icon: '🌐',
+            text: 'Dernekler, kurumlar ve ailelerle birlikte güvenli buluşmalar, topluluk etkinlikleri ve eğitim pusulası.'
+          },
+          {
+            title: 'Şeffaf Ücret ve Planlama',
+            icon: '💶',
+            text: 'Ders, ücret ve planlamayı mentorunuzla konuşun; platform hiçbir komisyon almaz.'
+          }
+        ] as feature}
+          <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition text-center border border-gray-100">
+            <div class="text-4xl mb-3">{feature.icon}</div>
+            <h3 class="text-card mb-3 text-gray-900">{feature.title}</h3>
+            <p class="text-gray-600">{feature.text}</p>
+          </div>
+        {/each}
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Success Stories Section -->
-<section class="py-20 bg-white">
+  <!-- Innovation cards -->
+  <section class="py-20 bg-gradient-to-br from-indigo-50 via-white to-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-page text-center mb-4 text-gray-900">Yeniliklerimiz</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Dijital Ders Karnesi, Eğitim Pusulası ve Topluluk Soru-Cevap gibi araçlar sayesinde çocuğunuzun gelişimini yakından takip edersiniz.
+      </p>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Dijital Ders Karnesi</h3>
+          <p class="text-gray-600">
+            Her ders sonrası mentor tarafından doldurulur; katılım, öğrenilen konu ve mentor notlarıyla gelişimi takip eder.
+          </p>
+        </div>
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Eğitim Pusulası</h3>
+          <p class="text-gray-600">
+            Premium+ üyeler için yapay zekâ destekli rehber; okul türleri, geçiş kuralları ve dil sertifikalarına göre kişisel yol haritası sunar.
+          </p>
+        </div>
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Topluluk Soru-Cevap</h3>
+          <p class="text-gray-600">
+            Moderatorlü forumda sadece onaylı mentorlar yanıtlar; veliler ve öğrenciler için güvenilir bilgi kaynağıdır.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories Section -->
+  <section class="py-20 bg-white">
   <div class="container mx-auto px-4">
     <h2 class="text-page text-center mb-4 text-gray-900">Başarı Hikayeleri</h2>
     <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
@@ -169,28 +202,44 @@
 <section class="py-20 bg-white">
   <div class="container mx-auto px-4">
     <h2 class="text-page text-center mb-4 text-gray-900">Nasıl Çalışır?</h2>
-    <p class="text-center text-gray-600 mb-12">Üç basit adımda öğretmeninizi bulun</p>
+    <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+      Veliler, mentor adayları ve topluluklarla birlikte çocuğunuzun eğitim yolculuğunu
+      şeffaf bir şekilde yürütüyoruz.
+    </p>
     
-    <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-      {#each [
-        { num: 1, title: 'Öğretmen Bul', desc: 'Şehir, ders ve fiyata göre filtrele', icon: '🔍' },
-        { num: 2, title: 'Profil İncele', desc: 'Üniversite, deneyim ve yorumları gör', icon: '📋' },
-        { num: 3, title: 'İletişime Geç', desc: 'WhatsApp ile direkt mesaj gönder', icon: '💬' }
-      ] as step}
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-primary-600 shadow-sm">
-            {step.num}
-          </div>
-          <div class="text-4xl mb-3">{step.icon}</div>
-          <h3 class="text-small-heading mb-2 text-gray-900">{step.title}</h3>
-          <p class="text-gray-600">{step.desc}</p>
-        </div>
-      {/each}
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="bg-gray-50 rounded-3xl p-8 shadow-lg border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Veliler İçin</h3>
+        <ol class="list-decimal list-inside space-y-3 text-gray-700">
+          <li>Mentorların fotoğrafını, üniversite bilgisini, deneyimini ve yorumlarını inceleyin.</li>
+          <li>Tarih, ders ve ihtiyaçları içeren kısa bir ders talebi oluşturun.</li>
+          <li>WhatsApp veya telefonla tanışma görüşmesi yapıp hedefleri birlikte belirleyin.</li>
+          <li>Dijital Ders Karnesi ve Eğitim Pusulası ile ilerlemeyi takip edin.</li>
+        </ol>
+      </div>
+      <div class="bg-gray-50 rounded-3xl p-8 shadow-lg border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Mentorlar</h3>
+        <ol class="list-decimal list-inside space-y-3 text-gray-700">
+          <li>“Mentor Ol” sayfasından kayıt olup kimlik ve üniversite belgelerini yükleyin.</li>
+          <li>Profilinizi ders alanları, deneyim ve ücret bilgileriyle güncelleyin.</li>
+          <li>Ders taleplerini inceleyip uygun velilerle iletişim kurun.</li>
+          <li>Gönüllü rozetler ve Mentor Teşvik Rehberi’ndeki ödüllerle topluluğa katkı sunun.</li>
+          <li>Ücretinizi veliyle doğrudan kararlaştırın; platform müdahil olmaz.</li>
+        </ol>
+      </div>
+      <div class="bg-gray-50 rounded-3xl p-8 shadow-lg border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Dernekler & Kurumlar</h3>
+        <p class="text-gray-700 space-y-3">
+          Eğitim faaliyetleri, güvenli mentor-öğrenci buluşmaları ve yerel rehberlik için kurumlarla iş birliğine açığız.
+          Topluluklar için özel mentor buluşmaları organize eder, Eğitim Pusulası’nı üyelerinize sunarız.
+          İletişim sayfamızdan teklifinizi iletin, birlikte göçmen çocuklarının yanında olalım.
+        </p>
+      </div>
     </div>
     
     <div class="text-center mt-12">
       <Button variant="primary" size="lg" href="/nasil-calisir">
-        Detaylı Bilgi
+        Süreci Detaylı İncele
       </Button>
     </div>
   </div>

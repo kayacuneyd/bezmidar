@@ -10,6 +10,10 @@
           a: "DijitalMentor, Almanya başta olmak üzere Avrupa'da yaşayan Türk aileleri; çocuklarına hem ders hem de mentorluk verebilen üniversiteli gençlerle buluşturan bir platformdur. Çocuğunuz için kendi dilinden anlayan, benzer yollardan geçmiş rol modellerle tanışabilirsiniz."
         },
         {
+          q: "Dijital Ders Karnesi nedir?",
+          a: "Her ders sonrasında mentorun doldurduğu mini raporla veliler, katılım, öğrenilen konu ve mentor notları üzerinden ilerlemeyi izler. Böylece şeffaf iletişim sürer."
+        },
+        {
           q: "Platformu kullanmak ücretli mi?",
           a: "Hayır, veliler için öğretmen aramak ve iletişime geçmek tamamen ücretsizdir. Sadece alacağınız dersler için öğretmeninize ödeme yaparsınız."
         },
@@ -39,6 +43,10 @@
           a: "Derslerin nerede yapılacağına öğretmeninizle birlikte karar verirsiniz. Kendi evinizde, öğretmenin evinde veya online (görüntülü görüşme) olarak ders alabilirsiniz."
         },
         {
+          q: "Eğitim Pusulası nedir?",
+          a: "Premium+ üyelerimiz için yapay zekâ destekli asistan; Almanya’daki okul türleri, geçiş kuralları ve dil sertifikaları hakkında kişisel yol haritası çıkarmanızda yardımcı olur."
+        },
+        {
           q: "Memnun kalmazsam ne yapabilirim?",
           a: "Öğretmeninizle yaşadığınız herhangi bir sorunda dersleri istediğiniz zaman sonlandırabilirsiniz. Ciddi durumlarda 'İletişim' sayfasından bize bildirirseniz gerekli incelemeleri yaparız."
         }
@@ -54,6 +62,10 @@
         {
           q: "Ders ücretimi kendim belirleyebilir miyim?",
           a: "Evet, saatlik ders ücretinizi profilinizde kendiniz belirlersiniz. İstediğiniz zaman bu ücreti güncelleyebilirsiniz."
+        },
+        {
+          q: "Mentor Teşvik Rehberi nedir?",
+          a: "Mentorlarımızı performans, topluluk katkısı ve güvenilir davranışlarına göre ödüllendiriyoruz. Altın Mentor ve Güvenilir Mentor rozetleri, gönüllü sertifikalarla mentorluk kariyerine destek verir."
         }
       ]
     }
