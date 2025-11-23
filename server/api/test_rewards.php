@@ -9,13 +9,15 @@ require_once __DIR__ . '/config/db.php';
 try {
     // 1. Create a test user (student)
     $testEmail = 'test_student_' . time() . '@example.com';
-    $stmt = $pdo->prepare("INSERT INTO users (full_name, email, password, role, is_active, approval_status) VALUES (?, ?, ?, 'student', 1, 'approved')");
-    $stmt->execute(['Test Student', $testEmail, 'dummy_hash']);
+    $testPhone1 = '999' . time();
+    $stmt = $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, is_active, approval_status) VALUES (?, ?, ?, ?, 'student', 1, 'approved')");
+    $stmt->execute(['Test Student', $testEmail, $testPhone1, 'dummy_hash']);
     $studentId = $pdo->lastInsertId();
 
     // 2. Create a test user (teacher)
-    $stmt = $pdo->prepare("INSERT INTO users (full_name, email, password, role, is_active, approval_status) VALUES (?, ?, ?, 'student', 1, 'approved')");
-    $stmt->execute(['Test Teacher', 'test_teacher_' . time() . '@example.com', 'dummy_hash']);
+    $testPhone2 = '888' . time();
+    $stmt = $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, is_active, approval_status) VALUES (?, ?, ?, ?, 'student', 1, 'approved')");
+    $stmt->execute(['Test Teacher', 'test_teacher_' . time() . '@example.com', $testPhone2, 'dummy_hash']);
     $teacherId = $pdo->lastInsertId();
 
     // 3. Create a conversation
