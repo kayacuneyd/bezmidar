@@ -154,7 +154,7 @@
           {/if}
         </div>
         
-        {#if user?.role !== 'admin'}
+        {#if user && (user.role === 'student' || user.role === 'parent')}
           <RewardsPanel />
         {/if}
         
