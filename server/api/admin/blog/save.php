@@ -22,6 +22,7 @@ $slug = trim($data['slug'] ?? '');
 $title = trim($data['title'] ?? '');
 $excerpt = trim($data['excerpt'] ?? '');
 $content = trim($data['content'] ?? '');
+$contentMarkdown = isset($data['content_markdown']) ? trim($data['content_markdown']) : null;
 $author = trim($data['author'] ?? '');
 $image = trim($data['image'] ?? '');
 $isPublished = isset($data['is_published']) ? (int) !!$data['is_published'] : 1;
@@ -36,16 +37,16 @@ try {
     if ($id > 0) {
         $stmt = $pdo->prepare("
             UPDATE blog_posts
-            SET slug = ?, title = ?, excerpt = ?, content = ?, author = ?, image = ?, is_published = ?, updated_at = NOW()
+            SET slug = ?, title = ?, excerpt = ?, content = ?, content_markdown = ?, author = ?, image = ?, is_published = ?, updated_at = NOW()
             WHERE id = ?
         ");
-        $stmt->execute([$slug, $title, $excerpt, $content, $author, $image, $isPublished, $id]);
+        $stmt->execute([$slug, $title, $excerpt, $content, $contentMarkdown, $author, $image, $isPublished, $id]);
     } else {
         $stmt = $pdo->prepare("
-            INSERT INTO blog_posts (slug, title, excerpt, content, author, image, is_published)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO blog_posts (slug, title, excerpt, content, content_markdown, author, image, is_published)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ");
-        $stmt->execute([$slug, $title, $excerpt, $content, $author, $image, $isPublished]);
+        $stmt->execute([$slug, $title, $excerpt, $content, $contentMarkdown, $author, $image, $isPublished]);
         $id = (int) $pdo->lastInsertId();
     }
 

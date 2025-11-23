@@ -1,10 +1,26 @@
 <?php
 
+if (!function_exists('dm_addColumnIfMissing')) {
+    function dm_addColumnIfMissing(PDO $pdo, $table, $column, $definition)
+    {
+        try {
+            $stmt = $pdo->prepare("SHOW COLUMNS FROM `{$table}` LIKE ?");
+            $stmt->execute([$column]);
+            if ($stmt->rowCount() === 0) {
+                $pdo->exec("ALTER TABLE `{$table}` ADD COLUMN {$definition}");
+            }
+        } catch (PDOException $e) {
+            error_log("dm_addColumnIfMissing ({$table}.{$column}) failed: " . $e->getMessage());
+            throw $e;
+        }
+    }
+}
+
 /**
  * Ensure blog-related tables exist. This allows admin/blog endpoints
  * to work even if the migration wasn't run manually beforehand.
  */
-function ensureBlogTables(PDO $pdo): void
+function ensureBlogTables(PDO $pdo)
 {
     static $ensured = false;
 
@@ -52,6 +68,12 @@ SQL,
             throw $e;
         }
     }
+
+    // Legacy deployments might miss columns. Patch them idempotently.
+    dm_addColumnIfMissing($pdo, 'blog_posts', 'content_markdown', "`content_markdown` longtext NULL AFTER `content`");
+    dm_addColumnIfMissing($pdo, 'blog_posts', 'is_published', "`is_published` tinyint(1) NOT NULL DEFAULT 1 AFTER `likes`");
+    dm_addColumnIfMissing($pdo, 'blog_posts', 'created_at', "`created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP AFTER `is_published`");
+    dm_addColumnIfMissing($pdo, 'blog_posts', 'updated_at', "`updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `created_at`");
 
     $ensured = true;
 }

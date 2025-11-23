@@ -4,6 +4,8 @@
   import { authStore } from '$lib/stores/auth.js';
   import { api } from '$lib/utils/api.js';
   import { toast } from '$lib/stores/toast.js';
+  import MarkdownEditor from '$lib/components/MarkdownEditor.svelte';
+  import { marked } from 'marked';
 
   let activeTab = 'teachers';
 
@@ -27,6 +29,7 @@
     title: '',
     excerpt: '',
     content: '',
+    content_markdown: '',
     author: '',
     image: '',
     is_published: 1
@@ -176,6 +179,26 @@ let activeSupportFilter = '';
     }
   }
 
+  function htmlToMarkdown(html = '') {
+    if (!html) return '';
+    return html
+      .replace(/<\/p>\s*<p>/gi, '\n\n')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/?(strong|b)>/gi, '**')
+      .replace(/<\/?(em|i)>/gi, '*')
+      .replace(/<\/?h1>/gi, '\n# ')
+      .replace(/<\/?h2>/gi, '\n## ')
+      .replace(/<\/?h3>/gi, '\n### ')
+      .replace(/<\/?ul>/gi, '\n')
+      .replace(/<li>(.*?)<\/li>/gi, (_, item) => `\n- ${item.trim()}`)
+      .replace(/<\/?ol>/gi, '\n')
+      .replace(/<!--.*?-->/g, '')
+      .replace(/<\/?[^>]+>/g, '')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .trim();
+  }
+
   function editPost(post) {
     blogForm = {
       id: post.id,
@@ -183,6 +206,7 @@ let activeSupportFilter = '';
       title: post.title,
       excerpt: post.excerpt,
       content: post.content || '',
+      content_markdown: post.content_markdown || htmlToMarkdown(post.content || ''),
       author: post.author || '',
       image: post.image || '',
       is_published: post.is_published ? 1 : 0
@@ -197,6 +221,7 @@ let activeSupportFilter = '';
       title: '',
       excerpt: '',
       content: '',
+      content_markdown: '',
       author: '',
       image: '',
       is_published: 1
@@ -205,7 +230,14 @@ let activeSupportFilter = '';
 
   async function saveBlogPost() {
     try {
-      await api.post('/admin/blog/save.php', blogForm);
+      const payload = {
+        ...blogForm,
+        content: blogForm.content_markdown
+          ? marked.parse(blogForm.content_markdown)
+          : blogForm.content
+      };
+
+      await api.post('/admin/blog/save.php', payload);
       toast.success('Yazı kaydedildi');
       resetBlogForm();
       loadBlogPosts();
@@ -578,7 +610,7 @@ let activeSupportFilter = '';
             <input class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500" placeholder="Yazar" bind:value={blogForm.author} />
             <input class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500" placeholder="Kapak görseli URL" bind:value={blogForm.image} />
             <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 min-h-[80px]" placeholder="Kısa özet" bind:value={blogForm.excerpt}></textarea>
-            <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 min-h-[180px]" placeholder="İçerik (HTML)" bind:value={blogForm.content}></textarea>
+            <MarkdownEditor bind:value={blogForm.content_markdown} />
             <label class="flex items-center gap-2 text-sm text-gray-700">
               <input type="checkbox" bind:checked={blogForm.is_published} />
               Yayında

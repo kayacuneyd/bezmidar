@@ -17,6 +17,7 @@ try {
             title,
             excerpt,
             content,
+            content_markdown,
             author,
             image,
             likes,
