@@ -15,8 +15,8 @@
 </script>
 
 <svelte:head>
-  <title>Blog - Bezmidar</title>
-  <meta name="description" content="Eğitim, çocuk gelişimi ve gurbette yaşam hakkında faydalı bilgiler." />
+  <title>Blog - DijitalMentor</title>
+  <meta name="description" content="Eğitim, çocuk gelişimi, mentorluk ve gurbette yaşam hakkında faydalı yazılar." />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-6xl">

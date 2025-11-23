@@ -32,7 +32,7 @@
         },
         {
           q: "Ödemeyi kime yapacağım?",
-          a: "Ödemeyi doğrudan anlaştığınız öğretmene yaparsınız. Bezmidar ödeme sürecine karışmaz ve komisyon almaz. Ödeme yöntemini (nakit, havale vb.) öğretmeninizle konuşarak belirlersiniz."
+          a: "Ödemeyi doğrudan anlaştığınız öğretmene yaparsınız. DijitalMentor ödeme sürecine karışmaz ve komisyon almaz. Ödeme yöntemini (nakit, havale vb.) öğretmeninizle konuşarak belirlersiniz."
         },
         {
           q: "Dersler nerede yapılıyor?",
@@ -76,7 +76,7 @@
 </script>
 
 <svelte:head>
-  <title>Sıkça Sorulan Sorular - Bezmidar</title>
+  <title>Sıkça Sorulan Sorular - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-3xl">

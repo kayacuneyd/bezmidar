@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>Ders Talepleri - Bezmidar</title>
+  <title>Ders Talepleri - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8">

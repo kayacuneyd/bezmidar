@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>Giriş Yap - Bezmidar</title>
+  <title>Giriş Yap - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-md">

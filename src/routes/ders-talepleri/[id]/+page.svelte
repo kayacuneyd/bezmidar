@@ -63,7 +63,7 @@
 </script>
 
 <svelte:head>
-  <title>{request ? request.title : 'Talep Detayı'} - Bezmidar</title>
+  <title>{request ? request.title : 'Talep Detayı'} - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 max-w-3xl">

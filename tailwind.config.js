@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Bezmidar Brand Colors
+        // DijitalMentor Brand Colors
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',
@@ -12,7 +12,7 @@ export default {
           300: '#93c5fd',
           400: '#60a5fa',
           500: '#3b82f6',
-          600: '#2563eb', // Bezmidar Mavisi (Main)
+          600: '#2563eb', // DijitalMentor Mavisi (Main)
           700: '#1d4ed8',
           800: '#1e40af',
           900: '#1e3a8a',

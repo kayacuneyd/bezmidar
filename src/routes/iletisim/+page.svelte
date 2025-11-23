@@ -17,7 +17,7 @@
 </script>
 
 <svelte:head>
-  <title>İletişim - Bezmidar</title>
+  <title>İletişim - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-6xl">
@@ -56,7 +56,7 @@
           <div>
             <h3 class="font-bold text-gray-900 mb-1">E-Posta</h3>
             <p class="text-gray-600">
-              <a href="mailto:info@bezmidar.com" class="hover:text-blue-600 transition">info@bezmidar.com</a>
+              <a href="mailto:info@dijitalmentor.de" class="hover:text-blue-600 transition">info@dijitalmentor.de</a>
             </p>
             <p class="text-sm text-gray-500 mt-1">Genellikle 24 saat içinde yanıt veriyoruz.</p>
           </div>

@@ -54,7 +54,7 @@
 </script>
 
 <svelte:head>
-  <title>Öğretmen Ara - Bezmidar</title>
+  <title>Öğretmen Ara - DijitalMentor</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8">

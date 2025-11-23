@@ -30,14 +30,14 @@
 
 <svelte:head>
   {#if post}
-    <title>{post.title} - Bezmidar Blog</title>
+    <title>{post.title} - DijitalMentor Blog</title>
     <meta name="description" content={post.excerpt} />
     <meta property="og:title" content={post.title} />
     <meta property="og:description" content={post.excerpt} />
     <meta property="og:image" content={post.image} />
     <meta property="og:type" content="article" />
   {:else}
-    <title>Blog - Bezmidar</title>
+    <title>Blog - DijitalMentor</title>
   {/if}
 </svelte:head>
 

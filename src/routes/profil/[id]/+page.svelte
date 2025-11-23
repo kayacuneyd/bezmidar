@@ -47,7 +47,7 @@
 </script>
 
 <svelte:head>
-  <title>{teacher?.full_name || 'Öğretmen Profil'} - Bezmidar</title>
+  <title>{teacher?.full_name || 'Öğretmen Profil'} - DijitalMentor</title>
 </svelte:head>
 
 {#if loading}
