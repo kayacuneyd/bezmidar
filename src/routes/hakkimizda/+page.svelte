@@ -8,7 +8,7 @@
   <div class="prose prose-lg mx-auto text-gray-600">
     <p class="lead text-xl mb-6">
       DijitalMentor, Almanya’daki Türk ailelerini; çocuklarına hem ders hem de
-      abi/abla mentorluk verebilen üniversiteli gençlerle buluşturan bir eğitim ve
+      rol model mentorluk verebilen üniversiteli gençlerle buluşturan bir eğitim ve
       mentorluk platformudur.
     </p>
     

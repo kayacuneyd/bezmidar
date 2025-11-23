@@ -7,7 +7,7 @@
       items: [
         {
           q: "DijitalMentor nedir?",
-          a: "DijitalMentor, Almanya başta olmak üzere Avrupa'da yaşayan Türk aileleri; çocuklarına hem ders hem abi/abla mentorluk verebilen üniversiteli gençlerle buluşturan bir platformdur. Çocuğunuz için kendi dilinden anlayan, benzer yollardan geçmiş rol modellerle tanışabilirsiniz."
+          a: "DijitalMentor, Almanya başta olmak üzere Avrupa'da yaşayan Türk aileleri; çocuklarına hem ders hem de mentorluk verebilen üniversiteli gençlerle buluşturan bir platformdur. Çocuğunuz için kendi dilinden anlayan, benzer yollardan geçmiş rol modellerle tanışabilirsiniz."
         },
         {
           q: "Platformu kullanmak ücretli mi?",
@@ -28,7 +28,7 @@
         },
         {
           q: "Çocuğum Almanca okul sistemine alışmakta zorlanıyor, yardımcı olur musunuz?",
-          a: "Evet. Mentorlarımız sadece ders anlatmakla kalmaz, Almanya'da okumuş abi/abla rolünde çocuklarınıza kendi deneyimlerini aktarırlar. Bu sayede hem notları hem de özgüvenleri güçlenir."
+          a: "Evet. Mentorlarımız sadece ders anlatmakla kalmaz, Almanya'da okumuş birer yol arkadaşı olarak çocuklarınıza kendi deneyimlerini aktarırlar. Bu sayede hem notları hem de özgüvenleri güçlenir."
         },
         {
           q: "Ödemeyi kime yapacağım?",
