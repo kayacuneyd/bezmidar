@@ -10,13 +10,13 @@
   <!-- Hero Section -->
   <div class="text-center mb-16">
     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-      Çocuğunuz İçin En İyi Öğretmeni Bulmak<br/>
+      Çocuğunuz İçin Doğru Abi/Abla Mentoru Bulmak<br/>
       <span class="text-blue-600">Artık Çok Kolay</span>
     </h1>
     <p class="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
       Teknolojiyle aranız iyi olmasa bile endişelenmeyin. 
       Sizin için her şeyi basitleştirdik. 
-      Sadece 3 adımda çocuğunuza destek olacak öğretmeni bulabilirsiniz.
+      Sadece 3 adımda çocuğunuza hem ders hem mentorluk desteği verecek kişiyi bulabilirsiniz.
     </p>
   </div>
 
@@ -33,10 +33,11 @@
         <div class="inline-block bg-blue-600 text-white text-lg font-bold px-6 py-2 rounded-full mb-4 shadow-md">
           1. ADIM
         </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-3">Öğretmenlere Bakın</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">Mentorları Keşfedin</h2>
         <p class="text-lg text-gray-600 leading-relaxed">
-          Sanki pazarda gezer gibi... Şehrinizdeki öğretmenlerin fotoğraflarını ve bilgilerini inceleyin. 
-          Kim ne dersi veriyor, ücreti ne kadar, hepsi açıkça yazıyor.
+          Şehrinizdeki ve çevrimiçi mentorların fotoğraflarını, üniversitelerini, bölümlerini
+          ve deneyimlerini inceleyin. Hangi dersi verdiğini, saatlik ücretini ve önceki velilerin
+          yorumlarını tek ekranda görebilirsiniz.
         </p>
       </div>
     </div>
@@ -50,10 +51,11 @@
         <div class="inline-block bg-green-600 text-white text-lg font-bold px-6 py-2 rounded-full mb-4 shadow-md">
           2. ADIM
         </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-3">İstek Gönderin</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">Kısa Bir Talep Yazın</h2>
         <p class="text-lg text-gray-600 leading-relaxed">
-          "Benim çocuğumun matematiği zayıf" diyorsanız, bunu yazın. 
-          Tıpkı bir komşunuza not bırakır gibi. Hangi dersten yardım istediğinizi söyleyin, öğretmenler size ulaşsın.
+          “Kızım Almanca yazmada zorlanıyor” veya “Oğlum matematikte geride kaldı” gibi birkaç
+          cümleyle durumunuzu anlatın. Hangi dersten, kaçıncı sınıf için ve haftada yaklaşık kaç
+          saat destek istediğinizi yazmanız yeterli.
         </p>
       </div>
     </div>
@@ -67,10 +69,11 @@
         <div class="inline-block bg-red-600 text-white text-lg font-bold px-6 py-2 rounded-full mb-4 shadow-md">
           3. ADIM
         </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-3">Konuşun ve Başlayın</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">Tanışma Görüşmesi Yapın</h2>
         <p class="text-lg text-gray-600 leading-relaxed">
-          Size uygun öğretmeni bulduğunuzda telefonla görüşün. 
-          İçiniz ısınırsa derslere başlayın. Her şey sizin kontrolünüzde.
+          Size uygun gelen mentorla WhatsApp veya telefon üzerinden kısaca konuşun.
+          Hem ders planını hem de çocuğunuzun hedeflerini beraber belirleyin. İçiniz
+          ısındığında derslere başlarsınız; tempo ve sıklık tamamen sizin kontrolünüzdedir.
         </p>
       </div>
     </div>

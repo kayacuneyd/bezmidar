@@ -3,8 +3,11 @@
 </script>
 
 <svelte:head>
-  <title>DijitalMentor - Gurbet Çocuklarına Özel Ders</title>
-  <meta name="description" content="Almanya'daki Türk ailelerini üniversiteli öğretmenlerle buluşturan platform" />
+  <title>DijitalMentor - Gurbet Çocuklarına Mentor Desteği</title>
+  <meta
+    name="description"
+    content="Almanya'daki Türk ailelerini, çocuklarına hem ders hem abi/abla mentorluk verebilen üniversiteli rol modellerle buluşturan platform."
+  />
 </svelte:head>
 
 <!-- Hero Section -->
@@ -12,13 +15,14 @@
   <div class="container mx-auto px-4 py-20 md:py-28">
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="text-hero mb-6 leading-tight">
-        Çocuğunuzun dilinden anlayan öğretmenler
+        Çocuğunuzun dilinden anlayan abi/abla mentorlar
       </h1>
       <p class="text-xl md:text-2xl mb-4 text-primary-100 font-medium">
-        ODTÜ, Boğaziçi, İTÜ'lü ağabeylerle buluşun
+        ODTÜ, Boğaziçi, İTÜ’lü rol modellerle tanışın
       </p>
       <p class="text-lg mb-10 text-primary-200 max-w-2xl mx-auto">
-        Gurbet çocuklarına, kendi dilinden öğretmen
+        Çocuğunuz Almanya’daki okul sisteminde yalnız kalmasın; hem derslerinde destek alsın
+        hem de “Ben de yapabilirim” diyebileceği bir üniversiteli rol modeli olsun.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button variant="secondary" size="lg" href="/ara">
@@ -40,32 +44,40 @@
   <div class="container mx-auto px-4">
     <h2 class="text-page text-center mb-4 text-gray-900">Neden DijitalMentor?</h2>
     <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-      Almanya'daki Türk ailelerini üniversiteli öğretmenlerle buluşturan güvenilir platform
+      Almanya’daki Türk aileleri için hem akademik destek hem de abi/abla mentorluk sağlayan güvenilir platform.
     </p>
     
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
       <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
         <div class="text-5xl mb-4">✅</div>
-        <h3 class="text-card mb-3 text-gray-900">Güvenilir Öğretmenler</h3>
-        <p class="text-gray-600">Üniversite belgesi doğrulanmış, deneyimli öğrenciler</p>
+        <h3 class="text-card mb-3 text-gray-900">Onaylı Mentorlar</h3>
+        <p class="text-gray-600">
+          Üniversite belgesi kontrol edilmiş, geçmişi doğrulanmış ve yalnızca onaylanan mentorlar listelenir.
+        </p>
       </div>
       
       <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
         <div class="text-5xl mb-4">💰</div>
-        <h3 class="text-card mb-3 text-gray-900">Uygun Fiyat</h3>
-        <p class="text-gray-600">Saatte €15-25 arası esnek ücretlendirme</p>
+        <h3 class="text-card mb-3 text-gray-900">Erişilebilir Ücretler</h3>
+        <p class="text-gray-600">
+          Saatte ortalama €15–25 aralığında, ailenizin bütçesine uygun esnek ücretlendirme.
+        </p>
       </div>
       
       <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
         <div class="text-5xl mb-4">🇹🇷</div>
-        <h3 class="text-card mb-3 text-gray-900">Kültürel Bağ</h3>
-        <p class="text-gray-600">Çocuğunuzla aynı dili konuşan rol modeller</p>
+        <h3 class="text-card mb-3 text-gray-900">Kültürel Bağ ve Özgüven</h3>
+        <p class="text-gray-600">
+          Çocuğunuzun yaşadığı zorlukları yaşamış, aynı dili ve kültürü paylaşan abi/abla rol modeller.
+        </p>
       </div>
       
       <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
         <div class="text-5xl mb-4">📍</div>
-        <h3 class="text-card mb-3 text-gray-900">Yakınınızda</h3>
-        <p class="text-gray-600">PLZ koduna göre en yakın öğretmenleri bulun</p>
+        <h3 class="text-card mb-3 text-gray-900">Size En Yakın Mentor</h3>
+        <p class="text-gray-600">
+          PLZ koduna göre hem yüz yüze ders için yakınınızdaki hem de online ders için uygun mentorları görüntüleyin.
+        </p>
       </div>
     </div>
   </div>

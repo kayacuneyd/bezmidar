@@ -6,12 +6,16 @@
       category: "Genel",
       items: [
         {
-          q: "Bezmidar nedir?",
-          a: "Bezmidar, Avrupa'da yaşayan gurbetçi ailelerimizi, kendi kültürümüzü ve dilimizi bilen öğretmenlerle buluşturan bir platformdur. Çocuğunuz için en uygun öğretmeni buradan kolayca bulabilirsiniz."
+          q: "DijitalMentor nedir?",
+          a: "DijitalMentor, Almanya başta olmak üzere Avrupa'da yaşayan Türk aileleri; çocuklarına hem ders hem abi/abla mentorluk verebilen üniversiteli gençlerle buluşturan bir platformdur. Çocuğunuz için kendi dilinden anlayan, benzer yollardan geçmiş rol modellerle tanışabilirsiniz."
         },
         {
           q: "Platformu kullanmak ücretli mi?",
           a: "Hayır, veliler için öğretmen aramak ve iletişime geçmek tamamen ücretsizdir. Sadece alacağınız dersler için öğretmeninize ödeme yaparsınız."
+        },
+        {
+          q: "Mentorlarınız güvenilir mi?",
+          a: "Her mentorun üniversite öğrencisi veya mezunu olduğuna dair belgeleri istiyoruz ve profilleri tek tek kontrol ediyoruz. Onaylı olmayan hesaplar listelenmez. Şüpheli bir durum fark ederseniz hemen inceleme başlatıyoruz."
         }
       ]
     },
@@ -21,6 +25,10 @@
         {
           q: "Nasıl öğretmen bulabilirim?",
           a: "'Öğretmen Ara' sayfasına giderek şehrinizi ve aradığınız dersi seçmeniz yeterlidir. Size en yakın öğretmenleri listeleyip profillerini inceleyebilirsiniz."
+        },
+        {
+          q: "Çocuğum Almanca okul sistemine alışmakta zorlanıyor, yardımcı olur musunuz?",
+          a: "Evet. Mentorlarımız sadece ders anlatmakla kalmaz, Almanya'da okumuş abi/abla rolünde çocuklarınıza kendi deneyimlerini aktarırlar. Bu sayede hem notları hem de özgüvenleri güçlenir."
         },
         {
           q: "Ödemeyi kime yapacağım?",
