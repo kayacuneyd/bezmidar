@@ -5,6 +5,9 @@
   import RewardsPanel from '$lib/components/RewardsPanel.svelte';
   
   $: user = $authStore.user;
+  $: if ($authStore.isAuthenticated && user?.role === 'admin') {
+    goto('/panel/admin');
+  }
   
   onMount(() => {
     if (!$authStore.isAuthenticated) {
@@ -151,7 +154,9 @@
           {/if}
         </div>
         
-        <RewardsPanel />
+        {#if user?.role !== 'admin'}
+          <RewardsPanel />
+        {/if}
         
         <!-- Support Card -->
         <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-2xl shadow-lg text-white">
