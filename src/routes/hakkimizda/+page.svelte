@@ -61,7 +61,7 @@
     <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">Topluluk ve Dernekler</h2>
       <p class="text-gray-700 leading-relaxed space-y-3">
-        DijitalMentor’u cemaat değil, topluluk girişimi olarak konumlandırıyoruz. Türk dernekleri ve
+        DijitalMentor'u bir topluluk girişimi olarak düşünün. Türk dernekleri ve
         kurumlarıyla etkinlikler düzenleyerek ailelerin güvenini güçlendiriyor, güvenli mentor-öğrenci
         buluşmaları organize ediyoruz. Dernekler, mentorlar ve aileler bu platformda birlikte hareket
         ederek diasporada güçlü bir eğitim ağı oluşturuyor.
