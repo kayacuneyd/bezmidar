@@ -19,6 +19,25 @@ export async function mixAudio(voicePath, musicPath, outputPath) {
   return new Promise((resolve, reject) => {
     const musicVolume = process.env.BACKGROUND_MUSIC_VOLUME || '0.1';
 
+    // If no music provided, just re-encode the voice to the target output
+    if (!musicPath || !fs.existsSync(musicPath)) {
+      console.log('⚠️ No background music provided, exporting voice only');
+      ffmpeg()
+        .input(voicePath)
+        .audioCodec('libmp3lame')
+        .audioBitrate('192k')
+        .on('end', () => {
+          console.log(`✅ Voice-only audio saved: ${outputPath}`);
+          resolve(outputPath);
+        })
+        .on('error', (err) => {
+          console.error('FFmpeg voice-only error:', err);
+          reject(err);
+        })
+        .save(outputPath);
+      return;
+    }
+
     console.log(`🎚️ Mixing: Voice + Music (volume: ${musicVolume})`);
 
     ffmpeg()
