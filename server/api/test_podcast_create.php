@@ -36,6 +36,14 @@ try {
 
     echo "Success! Podcast Episode created with ID: $id\n";
 
+    // Check GITHUB_TOKEN
+    $githubToken = getenv('GITHUB_TOKEN');
+    echo "GITHUB_TOKEN: " . ($githubToken ? "SET (length: " . strlen($githubToken) . ")" : "NOT SET") . "\n";
+
+    if (!$githubToken) {
+        echo "WARNING: GITHUB_TOKEN is missing. Automatic generation will NOT work.\n";
+    }
+
     // 3. Cleanup
     $pdo->exec("DELETE FROM podcast_episodes WHERE id = $id");
     echo "Cleanup complete.\n";
