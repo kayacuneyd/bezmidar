@@ -25,9 +25,18 @@ try {
     $stmt->execute([$parentId, $teacherId]);
     $convId = $pdo->lastInsertId();
 
+    // Get a valid subject ID
+    $stmt = $pdo->query("SELECT id FROM subjects LIMIT 1");
+    $subjectId = $stmt->fetchColumn();
+    if (!$subjectId) {
+        // Fallback if no subjects exist (create one temporarily?)
+        // For now, let's assume at least one subject exists as per seed
+        $subjectId = 1;
+    }
+
     // 4. Create an accepted agreement
-    $stmt = $pdo->prepare("INSERT INTO lesson_agreements (conversation_id, sender_id, recipient_id, hourly_rate, status) VALUES (?, ?, ?, 10, 'accepted')");
-    $stmt->execute([$convId, $teacherId, $parentId]);
+    $stmt = $pdo->prepare("INSERT INTO lesson_agreements (conversation_id, sender_id, recipient_id, subject_id, hourly_rate, status) VALUES (?, ?, ?, ?, 10, 'accepted')");
+    $stmt->execute([$convId, $teacherId, $parentId, $subjectId]);
     $agreementId = $pdo->lastInsertId();
 
     // 5. Log hours (Simulate track_hours.php logic)
