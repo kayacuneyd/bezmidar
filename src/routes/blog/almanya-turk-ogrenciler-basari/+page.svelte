@@ -41,7 +41,7 @@
 
     <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Bir Mentorun Dokunuşu</h2>
     <p>
-      Ahmet'in hayatı, üniversitede okuyan Türk bir "abi" ile tanışmasıyla değişti. Bu mentor, Ahmet'e sadece matematik 
+      Ahmet'in hayatı, üniversitede okuyan Türk bir mentor ile tanışmasıyla değişti. Bu mentor, Ahmet'e sadece matematik 
       ve Almanca çalıştırmakla kalmadı; ona kendi hikayesini anlattı. "Ben de senin gibiydim, ama bak şimdi üniversitedeyim" 
       demesi, Ahmet'in kendine olan inancını tazeledi.
     </p>

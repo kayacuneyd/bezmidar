@@ -10,7 +10,7 @@
   <!-- Hero Section -->
   <div class="text-center mb-16">
     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-      Çocuğunuz İçin Doğru Abi/Abla Mentoru Bulmak<br/>
+      Çocuğunuz İçin Doğru Mentoru Bulmak<br/>
       <span class="text-blue-600">Artık Çok Kolay</span>
     </h1>
     <p class="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
@@ -81,14 +81,23 @@
   </div>
 
   <!-- Video Placeholder -->
-  <div class="mt-16 bg-gray-100 rounded-2xl p-8 text-center border-2 border-dashed border-gray-300">
-    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-      <span class="text-4xl text-red-500">▶️</span>
+  <div class="mt-16 relative rounded-2xl overflow-hidden shadow-2xl group cursor-pointer">
+    <img 
+      src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80" 
+      alt="Nasıl çalışır video önizleme" 
+      class="w-full h-64 md:h-96 object-cover transform group-hover:scale-105 transition duration-500"
+    />
+    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-30 transition duration-300">
+      <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition duration-300">
+        <span class="text-4xl text-primary-600 ml-2">▶️</span>
+      </div>
     </div>
-    <h3 class="text-xl font-bold text-gray-900 mb-2">Nasıl Yapıldığını İzleyin</h3>
-    <p class="text-gray-600">
-      (Buraya yakında sistemi anlatan çok basit bir video eklenecek)
-    </p>
+    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
+      <h3 class="text-xl font-bold mb-1">Nasıl Yapıldığını İzleyin</h3>
+      <p class="text-gray-200 text-sm">
+        Sistemi anlatan kısa videomuzu izleyin
+      </p>
+    </div>
   </div>
 
   <!-- CTA -->

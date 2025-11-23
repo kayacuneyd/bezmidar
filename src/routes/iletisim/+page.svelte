@@ -1,18 +1,34 @@
 <script>
+  import { api } from '$lib/utils/api.js';
+
   let loading = false;
   let success = false;
+  let error = '';
 
-  async function handleSubmit(e) {
+  let form = {
+    name: '',
+    email: '',
+    subject: 'Genel Bilgi',
+    message: ''
+  };
+
+  async function handleSubmit() {
+    if (loading) return;
     loading = true;
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 1000));
-    loading = false;
-    success = true;
-    e.target.reset();
-    
-    setTimeout(() => {
-      success = false;
-    }, 5000);
+    error = '';
+
+    try {
+      await api.post('/contact/submit.php', form);
+      success = true;
+      form = { name: '', email: '', subject: 'Genel Bilgi', message: '' };
+      setTimeout(() => {
+        success = false;
+      }, 5000);
+    } catch (err) {
+      error = err.message || 'Mesaj gönderilemedi. Lütfen tekrar deneyin.';
+    } finally {
+      loading = false;
+    }
   }
 </script>
 
@@ -128,31 +144,61 @@
       {/if}
 
       <form on:submit|preventDefault={handleSubmit} class="space-y-6">
+        {#if error}
+          <div class="bg-red-50 text-red-700 p-4 rounded-lg">
+            {error}
+          </div>
+        {/if}
         <div class="grid md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2" for="contact-name">Adınız Soyadınız</label>
-            <input id="contact-name" type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" placeholder="Adınız Soyadınız" />
+            <input
+              id="contact-name"
+              type="text"
+              required
+              bind:value={form.name}
+              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+              placeholder="Adınız Soyadınız"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2" for="contact-email">E-Posta Adresiniz</label>
-            <input id="contact-email" type="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" placeholder="ornek@email.com" />
+            <input
+              id="contact-email"
+              type="email"
+              required
+              bind:value={form.email}
+              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+              placeholder="ornek@email.com"
+            />
           </div>
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2" for="contact-subject">Konu</label>
-          <select id="contact-subject" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
-            <option>Genel Bilgi</option>
-            <option>Öğretmenlik Başvurusu</option>
-            <option>Teknik Destek</option>
-            <option>Öneri / Şikayet</option>
-            <option>Diğer</option>
+          <select
+            id="contact-subject"
+            bind:value={form.subject}
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+          >
+            <option value="Genel Bilgi">Genel Bilgi</option>
+            <option value="Öğretmenlik Başvurusu">Öğretmenlik Başvurusu</option>
+            <option value="Teknik Destek">Teknik Destek</option>
+            <option value="Öneri / Şikayet">Öneri / Şikayet</option>
+            <option value="Diğer">Diğer</option>
           </select>
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2" for="contact-message">Mesajınız</label>
-          <textarea id="contact-message" required rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" placeholder="Mesajınızı buraya yazın..."></textarea>
+          <textarea
+            id="contact-message"
+            required
+            rows="5"
+            bind:value={form.message}
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+            placeholder="Mesajınızı buraya yazın..."
+          ></textarea>
         </div>
 
         <button 

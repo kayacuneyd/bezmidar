@@ -50,7 +50,7 @@ export const mockData = {
       experience_years: 2,
       video_intro_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       reviews: [
-        { rating: 5, comment: 'Kızım Ayşe ablasını çok seviyor.', parent_name: 'Fatma Öztürk', created_at: '2023-11-01' }
+        { rating: 5, comment: 'Kızım Ayşe hocasını çok seviyor.', parent_name: 'Fatma Öztürk', created_at: '2023-11-01' }
       ]
     },
     {
@@ -171,7 +171,7 @@ export const mockData = {
       subject_id: 3,
       subject_name: 'İngilizce',
       title: 'İlkokul İngilizce Konuşma Pratiği',
-      description: 'Kızım için oyunlarla İngilizce öğretebilecek bir abla arıyoruz.',
+      description: 'Kızım için oyunlarla İngilizce öğretebilecek bir mentor arıyoruz.',
       city: 'München',
       budget_range: '15-25€',
       status: 'active',

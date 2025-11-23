@@ -9,7 +9,9 @@ CREATE TABLE IF NOT EXISTS `blog_posts` (
   `author` varchar(191) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `likes` int(11) NOT NULL DEFAULT 0,
+  `is_published` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_blog_posts_slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -26,4 +28,3 @@ CREATE TABLE IF NOT EXISTS `blog_comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- İsteğe bağlı: mockData'daki örnek yazıları eklemek için HTML içerikleri buraya koyabilirsin.
-

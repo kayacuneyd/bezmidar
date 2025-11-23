@@ -3,37 +3,46 @@
 </script>
 
 <svelte:head>
-  <title>DijitalMentor - Gurbet Çocuklarına Mentor Desteği</title>
+  <title>DijitalMentor - Diaspora Gençliğine Mentor Desteği</title>
   <meta
     name="description"
-    content="Almanya'daki Türk ailelerini, çocuklarına hem ders hem de mentorluk verebilen üniversiteli rol modellerle buluşturan platform."
+    content="Avrupa'daki Türk diasporasını, çocuklarına hem ders hem de mentorluk verebilen üniversiteli rol modellerle buluşturan platform."
   />
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white">
-  <div class="container mx-auto px-4 py-20 md:py-28">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-hero mb-6 leading-tight">
-        Çocuğunuzun dilinden anlayan üniversiteli mentorlar
-      </h1>
-      <p class="text-xl md:text-2xl mb-4 text-primary-100 font-medium">
-        ODTÜ, Boğaziçi, İTÜ’lü rol modellerle tanışın
-      </p>
-      <p class="text-lg mb-10 text-primary-200 max-w-2xl mx-auto">
-        Çocuğunuz Almanya’daki okul sisteminde yalnız kalmasın; hem derslerinde destek alsın
-        hem de “Ben de yapabilirim” diyebileceği bir yol arkadaşı olsun.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button variant="secondary" size="lg" href="/ara">
-          🔍 Öğretmen Ara
-        </Button>
-        <a
-          href="/kayit?role=student"
-          class="px-8 py-4 text-lg rounded-xl font-semibold border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-200"
-        >
-          ✨ Öğretmen Ol
-        </a>
+<section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white overflow-hidden">
+  <div class="container mx-auto px-4 py-12 md:py-20">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <div class="w-full md:w-1/2 text-center md:text-left">
+        <h1 class="text-hero mb-6 leading-tight">
+          Çocuğunuzun dilinden anlayan mentorlar
+        </h1>
+        <p class="text-xl md:text-2xl mb-4 text-primary-100 font-medium">
+          TU Munich, RWTH Aachen, ODTÜ, Boğaziçi’li rol modellerle tanışın
+        </p>
+        <p class="text-lg mb-10 text-primary-200 max-w-lg mx-auto md:mx-0">
+          Diaspora gençliği okul sisteminde yalnız kalmasın; hem derslerinde destek alsın
+          hem de “Ben de yapabilirim” diyebileceği bir yol arkadaşı olsun.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <Button variant="secondary" size="lg" href="/ara">
+            🔍 Öğretmen Bul
+          </Button>
+          <a
+            href="/kayit?role=student"
+            class="px-8 py-4 text-lg rounded-xl font-semibold border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-200"
+          >
+            ✨ Öğretmen Ol
+          </a>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2">
+        <img 
+          src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" 
+          alt="Üniversite öğrencileri kütüphanede" 
+          class="rounded-3xl shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500 border-4 border-white/20"
+        />
       </div>
     </div>
   </div>
@@ -44,7 +53,7 @@
   <div class="container mx-auto px-4">
     <h2 class="text-page text-center mb-4 text-gray-900">Neden DijitalMentor?</h2>
     <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-      Almanya’daki Türk aileleri için hem akademik destek hem de rol model mentorluk sağlayan güvenilir platform.
+      Avrupa Türk Diasporası için hem akademik destek hem de rol model mentorluk sağlayan güvenilir platform.
     </p>
     
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -66,7 +75,7 @@
       
       <div class="bg-white p-8 rounded-card shadow-card hover:shadow-card-hover transition-shadow text-center border border-gray-100">
         <div class="text-5xl mb-4">🇹🇷</div>
-        <h3 class="text-card mb-3 text-gray-900">Kültürel Bağ ve Özgüven</h3>
+        <h3 class="text-card mb-3 text-gray-900">Diaspora'nın Gücü</h3>
         <p class="text-gray-600">
           Çocuğunuzun yaşadığı zorlukları yaşamış, aynı dili ve kültürü paylaşan rol modeller.
         </p>
@@ -145,7 +154,7 @@
     
     <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
       {#each [
-        { num: 1, title: 'Öğretmen Ara', desc: 'Şehir, ders ve fiyata göre filtrele', icon: '🔍' },
+        { num: 1, title: 'Öğretmen Bul', desc: 'Şehir, ders ve fiyata göre filtrele', icon: '🔍' },
         { num: 2, title: 'Profil İncele', desc: 'Üniversite, deneyim ve yorumları gör', icon: '📋' },
         { num: 3, title: 'İletişime Geç', desc: 'WhatsApp ile direkt mesaj gönder', icon: '💬' }
       ] as step}

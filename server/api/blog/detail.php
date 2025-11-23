@@ -29,7 +29,7 @@ try {
             likes,
             DATE(created_at) AS date
         FROM blog_posts
-        WHERE slug = ?
+        WHERE slug = ? AND is_published = 1
         LIMIT 1
     ");
     $stmt->execute([$slug]);

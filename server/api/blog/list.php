@@ -17,6 +17,7 @@ try {
             likes,
             DATE(created_at) AS date
         FROM blog_posts
+        WHERE is_published = 1
         ORDER BY created_at DESC
         LIMIT 100
     ");
