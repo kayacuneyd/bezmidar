@@ -17,6 +17,7 @@
   <title>Panelim - DijitalMentor</title>
 </svelte:head>
 
+{#if $authStore.isAuthenticated}
 <div class="min-h-screen bg-gray-50/50 pb-12">
   <!-- Welcome Header -->
   <div class="bg-white border-b border-gray-100">
@@ -165,3 +166,9 @@
     </div>
   </div>
 </div>
+{:else}
+  <div class="container mx-auto px-4 py-20 flex flex-col items-center gap-4 text-center">
+    <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-gray-600">Yönlendiriliyorsunuz...</p>
+  </div>
+{/if}
