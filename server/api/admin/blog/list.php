@@ -34,5 +34,20 @@ try {
 } catch (Throwable $e) {
     error_log('Admin blog list error: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Blog yazıları getirilemedi']);
+    $message = 'Blog yazıları getirilemedi';
+
+    if ($e instanceof PDOException) {
+        $driverCode = $e->errorInfo[1] ?? null;
+        if ($driverCode === 1146) {
+            $message = 'Blog tabloları bulunamadı (migrasyon gerekli)';
+        } elseif ($driverCode === 1044 || str_contains(strtolower($e->getMessage()), 'denied')) {
+            $message = 'Veritabanında tablo oluşturma izni yok. Lütfen create_blog_tables.sql migrasyonunu çalıştırın.';
+        } else {
+            $message .= ' (' . $e->getMessage() . ')';
+        }
+    } else {
+        $message .= ' (' . $e->getMessage() . ')';
+    }
+
+    echo json_encode(['success' => false, 'error' => $message]);
 }

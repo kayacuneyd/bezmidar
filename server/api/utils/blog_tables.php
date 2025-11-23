@@ -45,7 +45,12 @@ SQL,
     ];
 
     foreach ($queries as $sql) {
-        $pdo->exec($sql);
+        try {
+            $pdo->exec($sql);
+        } catch (PDOException $e) {
+            error_log('ensureBlogTables failed: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
     $ensured = true;

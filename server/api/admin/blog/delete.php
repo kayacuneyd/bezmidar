@@ -32,5 +32,18 @@ try {
 } catch (Throwable $e) {
     error_log('Admin blog delete error: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Blog yazısı silinemedi']);
+    $message = 'Blog yazısı silinemedi';
+
+    if ($e instanceof PDOException) {
+        $driverCode = $e->errorInfo[1] ?? null;
+        if ($driverCode === 1146) {
+            $message = 'Blog tabloları bulunamadı (migrasyon gerekli)';
+        } else {
+            $message .= ' (' . $e->getMessage() . ')';
+        }
+    } else {
+        $message .= ' (' . $e->getMessage() . ')';
+    }
+
+    echo json_encode(['success' => false, 'error' => $message]);
 }
