@@ -1,0 +1,5 @@
+#!/bin/bash
+# Git commit sonrası otomatik deploy
+commit_msg=$(git log -1 --pretty=%B)
+cd "$(git rev-parse --show-toplevel)"
+./deploy_to_hostinger.sh "$commit_msg"

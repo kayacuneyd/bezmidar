@@ -29,10 +29,24 @@ loadDotEnv($baseDir . '/.env.local');
 // Read database credentials from environment variables
 // Production: Set these in .env file on Hostinger
 // Local dev: Set these in .env.local file
-$envHost = getenv('DB_HOST');
-$envName = getenv('DB_NAME');
-$envUser = getenv('DB_USER');
+$envHost = getenv('DB_HOST') ?: getenv('MYSQL_HOST');
+$envName = getenv('DB_NAME') ?: getenv('MYSQL_DATABASE');
+$envUser = getenv('DB_USER') ?: getenv('MYSQL_USER');
 $envPass = getenv('DB_PASS');
+
+// Heroku/ClearDB style single URL fallback: mysql://user:pass@host/dbname
+$databaseUrl = getenv('DATABASE_URL') ?: getenv('CLEARDB_DATABASE_URL') ?: getenv('JAWSDB_URL');
+if ((!$envHost || !$envName || $envUser === false) && $databaseUrl) {
+    $parts = parse_url($databaseUrl);
+    if ($parts) {
+        $envHost = $envHost ?: ($parts['host'] ?? null);
+        $envName = $envName ?: (isset($parts['path']) ? ltrim($parts['path'], '/') : null);
+        $envUser = $envUser !== false ? $envUser : ($parts['user'] ?? null);
+        if ($envPass === false || $envPass === null) {
+            $envPass = $parts['pass'] ?? '';
+        }
+    }
+}
 
 // Require environment variables - no hardcoded fallbacks for security
 if (empty($envHost) || empty($envName) || $envUser === false) {

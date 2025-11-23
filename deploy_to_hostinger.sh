@@ -15,7 +15,7 @@ fi
 echo "🔄 Git commit ve push işlemi yapılıyor..."
 git add .
 git commit -m "$1"
-git push origin main
+git push origin master
 
 # 2️⃣ Rsync ile dosyaları Hostinger sunucusuna gönder
 echo "🚀 Dosyalar Hostinger'a yükleniyor..."
