@@ -1,10 +1,12 @@
 <?php
 require_once __DIR__ . '/../config/cors.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../utils/blog_tables.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
 try {
+    ensureBlogTables($pdo);
     // En basit haliyle tüm yazıları tarihe göre yeni → eski sıralayalım
     $stmt = $pdo->prepare("
         SELECT

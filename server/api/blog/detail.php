@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/cors.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../utils/blog_tables.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -16,6 +17,7 @@ if ($slug === '') {
 }
 
 try {
+    ensureBlogTables($pdo);
     // Önce yazıyı bul
     $stmt = $pdo->prepare("
         SELECT

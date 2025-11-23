@@ -2,10 +2,12 @@
 require_once __DIR__ . '/../../config/cors.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../utils/blog_tables.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
 $admin = requireAuth(['admin']);
+ensureBlogTables($pdo);
 
 try {
     $stmt = $pdo->prepare("

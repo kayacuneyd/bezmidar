@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/cors.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../utils/blog_tables.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -33,6 +34,7 @@ $userName = isset($input['user']) && trim($input['user']) !== ''
     : 'Anonim';
 
 try {
+    ensureBlogTables($pdo);
     $stmt = $pdo->prepare("
         INSERT INTO blog_comments (post_id, user_name, comment_text, created_at)
         VALUES (?, ?, ?, NOW())

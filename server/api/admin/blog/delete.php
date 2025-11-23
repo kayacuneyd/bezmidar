@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../config/cors.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../utils/blog_tables.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -12,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $admin = requireAuth(['admin']);
+ensureBlogTables($pdo);
 
 $input = json_decode(file_get_contents('php://input'), true) ?? [];
 $id = isset($input['id']) ? (int) $input['id'] : 0;
