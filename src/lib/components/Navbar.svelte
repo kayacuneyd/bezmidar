@@ -4,6 +4,10 @@
   
   let mobileMenuOpen = false;
   
+  function closeMobileMenu() {
+    mobileMenuOpen = false;
+  }
+  
   $: user = $authStore.user;
   $: isAuthenticated = $authStore.isAuthenticated;
 </script>
@@ -67,25 +71,25 @@
     <div class="md:hidden border-t">
       <div class="container mx-auto px-4 py-4 flex flex-col gap-3">
         {#if user?.role === 'parent'}
-          <a href="/ara" class="py-2">Öğretmen Bul</a>
+          <a href="/ara" class="py-2" on:click={closeMobileMenu}>Öğretmen Bul</a>
         {:else if user?.role === 'student'}
-          <a href="/ders-talepleri" class="py-2">Ders Talepleri</a>
+          <a href="/ders-talepleri" class="py-2" on:click={closeMobileMenu}>Ders Talepleri</a>
         {:else}
-          <a href="/ara" class="py-2">Öğretmen Bul</a>
-          <a href="/ders-talepleri" class="py-2">Ders Talepleri</a>
+          <a href="/ara" class="py-2" on:click={closeMobileMenu}>Öğretmen Bul</a>
+          <a href="/ders-talepleri" class="py-2" on:click={closeMobileMenu}>Ders Talepleri</a>
         {/if}
-        <a href="/nasil-calisir" class="py-2">Nasıl Çalışır?</a>
-        <a href="/danisma-kurulu" class="py-2">Danışma Kurulu</a>
-        <a href="/podcast" class="py-2">Podcast</a>
-        <a href="/blog" class="py-2">Blog</a>
+        <a href="/nasil-calisir" class="py-2" on:click={closeMobileMenu}>Nasıl Çalışır?</a>
+        <a href="/danisma-kurulu" class="py-2" on:click={closeMobileMenu}>Danışma Kurulu</a>
+        <a href="/podcast" class="py-2" on:click={closeMobileMenu}>Podcast</a>
+        <a href="/blog" class="py-2" on:click={closeMobileMenu}>Blog</a>
         {#if isAuthenticated}
-          <a href="/panel" class="py-2">Panelim</a>
-          <button on:click={() => authStore.logout()} class="text-left py-2 text-red-600">
+          <a href="/panel" class="py-2" on:click={closeMobileMenu}>Panelim</a>
+          <button on:click={() => { authStore.logout(); closeMobileMenu(); }} class="text-left py-2 text-red-600">
             Çıkış
           </button>
         {:else}
-          <a href="/giris" class="py-2">Giriş</a>
-          <a href="/kayit" class="py-2 text-blue-600">Kayıt Ol</a>
+          <a href="/giris" class="py-2" on:click={closeMobileMenu}>Giriş</a>
+          <a href="/kayit" class="py-2 text-blue-600" on:click={closeMobileMenu}>Kayıt Ol</a>
         {/if}
       </div>
     </div>
