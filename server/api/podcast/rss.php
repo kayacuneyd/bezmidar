@@ -33,18 +33,18 @@ try {
     $podcastTitle = 'Dijital Mentor Podcast';
     $podcastDescription = 'Almanya\'daki Türk veliler için eğitim, teknoloji ve dijital dünyada çocuklarınızın başarısı hakkında bilgiler.';
     $podcastLink = 'https://dijitalmentor.de/podcast';
-    $podcastImage = 'https://podcast.dijitalmentor.de/podcast-cover.jpg';
+    $podcastImage = 'https://dijitalmentor.de/logo.png';
     $podcastAuthor = 'Dijital Mentor';
     $podcastEmail = 'info@dijitalmentor.de';
     $podcastCategory = 'Education';
     $podcastLanguage = 'tr';
 
     // Build RSS feed
-    $xml = new DOMDocument('1.0', 'UTF-8');
-    $xml->formatOutput = true;
-    
     // Clean output buffer to remove any whitespace or output before XML
     if (ob_get_length()) ob_clean();
+
+    $xml = new DOMDocument('1.0', 'UTF-8');
+    $xml->formatOutput = true;
 
     // RSS root
     $rss = $xml->createElement('rss');
