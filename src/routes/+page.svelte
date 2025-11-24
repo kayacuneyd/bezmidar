@@ -1,5 +1,21 @@
 <script>
+  import { onMount } from 'svelte';
   import Button from '$lib/components/Button.svelte';
+  import { api } from '$lib/utils/api.js';
+  import PodcastEpisodeCard from '$lib/components/PodcastEpisodeCard.svelte';
+
+  let latestPodcast = null;
+
+  onMount(async () => {
+    try {
+      const res = await api.get('/podcast/list.php', { page: 1, limit: 1 });
+      if (res.success && res.data.episodes && res.data.episodes.length > 0) {
+        latestPodcast = res.data.episodes[0];
+      }
+    } catch (err) {
+      console.error('Failed to fetch latest podcast:', err);
+    }
+  });
 </script>
 
 <svelte:head>
@@ -138,6 +154,46 @@
       </div>
     </div>
   </section>
+
+  <!-- Latest Podcast Section -->
+  {#if latestPodcast}
+  <section class="py-20 bg-white overflow-hidden">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12 bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl text-white relative">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-primary-500/20 rounded-full blur-2xl translate-y-1/3 -translate-x-1/3"></div>
+        
+        <div class="w-full md:w-1/2 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-6">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            En Son Yayın
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+            {latestPodcast.title}
+          </h2>
+          <p class="text-gray-300 text-lg mb-8 line-clamp-3">
+            {latestPodcast.description}
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <Button variant="primary" href="/podcast/{latestPodcast.slug}">
+              🎙️ Bölümü Dinle
+            </Button>
+            <a href="/podcast" class="px-6 py-3 rounded-xl font-medium border border-white/30 hover:bg-white/10 transition flex items-center gap-2">
+              Tüm Bölümler
+            </a>
+          </div>
+        </div>
+        
+        <div class="w-full md:w-1/2 relative z-10 flex justify-center">
+            <div class="transform rotate-3 hover:rotate-0 transition duration-500 max-w-sm w-full">
+             <PodcastEpisodeCard episode={latestPodcast} />
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {/if}
 
   <!-- Success Stories Section -->
   <section class="py-20 bg-white">

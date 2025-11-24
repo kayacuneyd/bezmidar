@@ -28,6 +28,7 @@
         {/if}
         <a href="/nasil-calisir" class="text-gray-700 hover:text-primary-600 font-medium transition">Nasıl Çalışır?</a>
         <a href="/danisma-kurulu" class="text-gray-700 hover:text-primary-600 font-medium transition">Danışma Kurulu</a>
+        <a href="/podcast" class="text-gray-700 hover:text-primary-600 font-medium transition">Podcast</a>
         <a href="/blog" class="text-gray-700 hover:text-primary-600 font-medium transition">Blog</a>
         
         {#if isAuthenticated}
@@ -75,6 +76,7 @@
         {/if}
         <a href="/nasil-calisir" class="py-2">Nasıl Çalışır?</a>
         <a href="/danisma-kurulu" class="py-2">Danışma Kurulu</a>
+        <a href="/podcast" class="py-2">Podcast</a>
         <a href="/blog" class="py-2">Blog</a>
         {#if isAuthenticated}
           <a href="/panel" class="py-2">Panelim</a>
