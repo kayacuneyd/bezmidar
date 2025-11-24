@@ -14,7 +14,9 @@
   $: slug = $page.params.slug;
 
   onMount(() => {
-    loadEpisode();
+    if (slug && slug !== 'feed.xml' && slug !== 'rss') {
+      loadEpisode();
+    }
   });
 
   async function loadEpisode() {
