@@ -66,24 +66,17 @@ async function generatePodcast(episodeId, topicPrompt, title = '', description =
     const durationSeconds = await getAudioDuration(finalAudioPath);
     logProgress(episodeId, 'generating', `✅ Ses hazır (${Math.floor(durationSeconds / 60)}:${String(durationSeconds % 60).padStart(2, '0')})`);
 
-    // Step 5: Generate thumbnail (simplified - solid color with text)
-    logProgress(episodeId, 'generating', '🖼️ Thumbnail oluşturuluyor...');
-    const thumbnailPath = path.join(OUTPUT_DIR, `${safeName}_thumb.jpg`);
-    // For now, skip complex image generation - can add DALL-E later
-    // await generateThumbnail(title || topicPrompt, thumbnailPath);
+    // Step 5: Use static cover image from dijitalmentor.de
+    logProgress(episodeId, 'generating', '🖼️ Cover image ayarlanıyor...');
+    const coverImageUrl = 'https://api.dijitalmentor.de/uploads/dijitalmentor_YT_THU.png';
+    logProgress(episodeId, 'generating', `✅ Static cover image kullanılacak: ${coverImageUrl}`);
 
-    // Step 6: Upload to Cloudflare R2
-    logProgress(episodeId, 'generating', '☁️ Dosyalar R2\'ye yükleniyor...');
+    // Step 6: Upload audio to Cloudflare R2
+    logProgress(episodeId, 'generating', '☁️ Audio dosyası R2\'ye yükleniyor...');
     const r2 = new R2Client();
 
     const audioUrl = await r2.uploadFile(finalAudioPath, `episodes/${safeName}.mp3`, 'audio/mpeg');
     logProgress(episodeId, 'generating', `✅ Audio yüklendi: ${audioUrl}`);
-
-    let coverImageUrl = null;
-    if (fs.existsSync(thumbnailPath)) {
-      coverImageUrl = await r2.uploadFile(thumbnailPath, `covers/${safeName}.jpg`, 'image/jpeg');
-      logProgress(episodeId, 'generating', `✅ Thumbnail yüklendi: ${coverImageUrl}`);
-    }
 
     // Step 7: Upload to YouTube
   logProgress(episodeId, 'generating', '📺 YouTube\'a yükleniyor...');
@@ -103,7 +96,7 @@ async function generatePodcast(episodeId, topicPrompt, title = '', description =
       title: videoTitle,
       description: videoDescription,
       audioPath: finalAudioPath,
-      thumbnailPath: thumbnailPath
+      thumbnailUrl: coverImageUrl
     });
 
       logProgress(episodeId, 'generating', `✅ YouTube video ID: ${youtubeVideoId}`);

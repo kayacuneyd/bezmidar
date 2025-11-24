@@ -18,30 +18,13 @@ export default class AnthropicClient {
   selectFormat(topicPrompt) {
     const lower = topicPrompt.toLowerCase();
 
-    // Interview format for questions
-    if (lower.includes('nasıl') || lower.includes('nedir') || lower.includes('ne demek') || lower.includes('?')) {
-      return 'interview';
-    }
-
-    // Story format for experiences
-    if (lower.includes('deneyim') || lower.includes('hikaye') || lower.includes('yaşayan') || lower.includes('gerçek')) {
-      return 'story';
-    }
-
     // Quick-tip for short/fast content
     if (lower.includes('kısa') || lower.includes('hızlı') || lower.includes('ipucu') || lower.includes('özet')) {
       return 'quick-tip';
     }
 
-    // Solo for detailed/comprehensive content
-    if (lower.includes('detaylı') || lower.includes('kapsamlı') || lower.includes('rehber')) {
-      return 'solo';
-    }
-
-    // Default: Random selection for variety
-    const formats = ['solo', 'interview', 'story'];
-    const randomIndex = Math.floor(Math.random() * formats.length);
-    return formats[randomIndex];
+    // Default: Solo monolog for all other topics
+    return 'solo';
   }
 
   /**
@@ -81,42 +64,6 @@ ${baseRules}
 ## Uzunluk: 600-800 kelime (4-5 dakika)
 
 Şimdi verilen konu hakkında podcast metni yaz.`,
-
-      interview: `Sen iki karakterli bir röportaj podcast'i yazıyorsun:
-- SUNUCU (Sen - Dijital Mentor Ekipler Amiri - Dimeka): Sorular soruyor, konuyu yönlendiriyor
-- UZMAN (Eğitim Danışmanı): Profesyonel cevaplar veriyor
-${baseRules}
-
-## Format Kuralları:
-- Her konuşmayı "SUNUCU:" veya "UZMAN:" ile başlat
-- Doğal bir diyalog oluştur
-- Sunucu kısa sorular sor
-- Uzman detaylı açıklamalar yapsın
-
-## İçerik Yapısı:
-1. SUNUCU: Giriş + bugünün konusu
-2. Diyalog: 4-5 soru-cevap
-3. SUNUCU: Özet ve kapanış
-
-## Uzunluk: 700-900 kelime (5-6 dakika)
-
-Şimdi verilen konu hakkında röportaj metni yaz.`,
-
-      story: `Sen gerçek bir Türk velisinin deneyimini hikaye formatında anlatıyorsun.
-${baseRules}
-
-## Hikaye Yapısı:
-1. Karakter tanıtımı: "Ayşe Hanım, 2 çocuk annesi..."
-2. Sorun/Durum: Velinin karşılaştığı zorluk
-3. Süreç: Nasıl çözdü
-4. Sonuç: Ne öğrendi, nasıl mutlu oldu
-5. Ders çıkarma: Diğer veliler için ipuçları
-
-## Uzunluk: 500-700 kelime (4 dakika)
-
-Giriş ve kapanış kısımlarını ES GEÇ, direkt hikayeye gir.
-
-Şimdi verilen konu hakkında hikaye anlat.`,
 
       'quick-tip': `Sen hızlı ipuçları veren, özet bilgi paylaşan bir podcast yapıyorsun.
 ${baseRules}

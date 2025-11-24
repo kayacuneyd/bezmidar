@@ -8,6 +8,7 @@ import fs from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import path from 'path';
+import https from 'https';
 
 const execAsync = promisify(exec);
 
@@ -39,11 +40,11 @@ export default class YouTubeClient {
    * @param {string} options.thumbnailPath - Path to thumbnail image (optional)
    * @returns {string} Video ID
    */
-  async uploadPodcast({ title, description, audioPath, thumbnailPath }) {
+  async uploadPodcast({ title, description, audioPath, thumbnailUrl = null, thumbnailPath = null }) {
     console.log('📺 YouTube video oluşturuluyor...');
 
     // Step 1: Convert audio to video (static image + audio)
-    const videoPath = await this.audioToVideo(audioPath, thumbnailPath);
+    const videoPath = await this.audioToVideo(audioPath, thumbnailUrl, thumbnailPath);
 
     // Step 2: Upload video
     console.log('📺 YouTube\'a yükleniyor...');
@@ -85,13 +86,22 @@ export default class YouTubeClient {
    * Convert audio to video with static image
    * @private
    */
-  async audioToVideo(audioPath, imagePath) {
+  async audioToVideo(audioPath, imageUrl = null, imagePath = null) {
     const outputPath = audioPath.replace('.mp3', '_video.mp4');
 
-    // Use solid color if no image provided
-    const imageInput = imagePath && fs.existsSync(imagePath)
-      ? `-loop 1 -i "${imagePath}"`
-      : `-f lavfi -i color=c=0x1a1a2e:s=1280x720`;
+    let imageInput;
+
+    // Priority: URL > local file > solid color
+    if (imageUrl) {
+      // Download image from URL temporarily
+      const tempImagePath = audioPath.replace('.mp3', '_temp_thumb.png');
+      await this.downloadImage(imageUrl, tempImagePath);
+      imageInput = `-loop 1 -i "${tempImagePath}"`;
+    } else if (imagePath && fs.existsSync(imagePath)) {
+      imageInput = `-loop 1 -i "${imagePath}"`;
+    } else {
+      imageInput = `-f lavfi -i color=c=0x1a1a2e:s=1280x720`;
+    }
 
     const command = `ffmpeg -y ${imageInput} -i "${audioPath}" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest -t 3600 "${outputPath}"`;
 
@@ -100,11 +110,40 @@ export default class YouTubeClient {
     try {
       await execAsync(command);
       console.log(`✅ Video hazır: ${outputPath}`);
+
+      // Clean up temp image if downloaded from URL
+      if (imageUrl) {
+        const tempImagePath = audioPath.replace('.mp3', '_temp_thumb.png');
+        if (fs.existsSync(tempImagePath)) {
+          fs.unlinkSync(tempImagePath);
+        }
+      }
+
       return outputPath;
     } catch (error) {
       console.error('FFmpeg hatası:', error.stderr);
       throw new Error(`Video oluşturulamadı: ${error.message}`);
     }
+  }
+
+  /**
+   * Download image from URL
+   * @private
+   */
+  async downloadImage(url, outputPath) {
+    return new Promise((resolve, reject) => {
+      const file = fs.createWriteStream(outputPath);
+      https.get(url, (response) => {
+        response.pipe(file);
+        file.on('finish', () => {
+          file.close();
+          resolve(outputPath);
+        });
+      }).on('error', (err) => {
+        fs.unlink(outputPath, () => {}); // Delete incomplete file
+        reject(err);
+      });
+    });
   }
 
   /**
