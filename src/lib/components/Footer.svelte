@@ -32,6 +32,7 @@
           {/if}
           <li><a href="/kayit?role=student" class="hover:text-white">Öğretmen Ol</a></li>
           <li><a href="/hakkimizda" class="hover:text-white">Hakkımızda</a></li>
+          <li><a href="/danisma-kurulu" class="hover:text-white">Danışma Kurulu</a></li>
         </ul>
       </div>
       

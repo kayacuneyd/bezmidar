@@ -34,21 +34,16 @@
   <div class="container mx-auto px-4 py-12 md:py-20">
     <div class="flex flex-col md:flex-row items-center gap-12">
       <div class="w-full md:w-1/2 text-center md:text-left">
-        <h1 class="text-hero mb-4 leading-tight">
-          Gurbet çocuklarına kendi dilinden mentorlar
+        <h1 class="text-hero mb-3 leading-tight">
+          Kendi dilinden güvenilir mentorlar
         </h1>
         <p class="text-xl md:text-2xl mb-4 text-primary-100 font-medium">
-          Türkiye ve Avrupa’nın seçkin üniversitelerinden rol modellerle eğitimde güvenli bir köprü kuruyoruz.
+          Diasporada eğitimde yalnız kalmayın; onaylı rol modellerle çocuğunuza yol arkadaşı bulun.
         </p>
-        <p class="text-lg mb-6 text-primary-200 max-w-lg mx-auto md:mx-0">
-          DijitalMentor’da veliler ders desteği değil, aidiyet hissi sunan bir topluluk deneyimi kazanır.
-          Öğrenciler hem akademik hem kişisel gelişim için ilham verici mentorlarla büyür.
-        </p>
-        <ul class="text-left text-base md:text-lg text-primary-100 space-y-2 mb-8 max-w-md">
-          <li>✅ Onaylı, kimliği ve üniversite belgeleri doğrulanmış mentorlar</li>
-          <li>🤝 Rol model desteği ve kültürel bağları güçlendiren programlar</li>
-          <li>💸 Komisyonsuz ödeme; ders planı ve ücretleri doğrudan mentorla belirleyin</li>
-          <li>📍 Yerel ve online mentorlar; PLZ filtreleriyle en yakınını bulun</li>
+        <ul class="text-left text-base md:text-lg text-primary-100 space-y-2 mb-6 max-w-md">
+          <li>✅ Onaylı mentor ve şeffaf süreç</li>
+          <li>🤝 Akademik destek + ilham veren rol modeller</li>
+          <li>📍 Online veya size en yakın seçenekler</li>
         </ul>
         <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <Button variant="secondary" size="lg" href="/ara">

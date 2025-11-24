@@ -27,6 +27,8 @@
           <a href="/ders-talepleri" class="text-gray-700 hover:text-primary-600 font-medium transition">Ders Talepleri</a>
         {/if}
         <a href="/nasil-calisir" class="text-gray-700 hover:text-primary-600 font-medium transition">Nasıl Çalışır?</a>
+        <a href="/danisma-kurulu" class="text-gray-700 hover:text-primary-600 font-medium transition">Danışma Kurulu</a>
+        <a href="/blog" class="text-gray-700 hover:text-primary-600 font-medium transition">Blog</a>
         
         {#if isAuthenticated}
           <a href="/panel" class="text-gray-700 hover:text-primary-600 transition">
@@ -72,6 +74,8 @@
           <a href="/ders-talepleri" class="py-2">Ders Talepleri</a>
         {/if}
         <a href="/nasil-calisir" class="py-2">Nasıl Çalışır?</a>
+        <a href="/danisma-kurulu" class="py-2">Danışma Kurulu</a>
+        <a href="/blog" class="py-2">Blog</a>
         {#if isAuthenticated}
           <a href="/panel" class="py-2">Panelim</a>
           <button on:click={() => authStore.logout()} class="text-left py-2 text-red-600">
