@@ -83,7 +83,7 @@ ${baseRules}
 Şimdi verilen konu hakkında podcast metni yaz.`,
 
       interview: `Sen iki karakterli bir röportaj podcast'i yazıyorsun:
-- SUNUCU (Sen - Cüneyt Kaya): Sorular soruyor, konuyu yönlendiriyor
+- SUNUCU (Sen - Dijital Mentor Ekipler Amiri - Dimeka): Sorular soruyor, konuyu yönlendiriyor
 - UZMAN (Eğitim Danışmanı): Profesyonel cevaplar veriyor
 ${baseRules}
 

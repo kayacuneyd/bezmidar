@@ -3,8 +3,8 @@
  * Text-to-Speech with multilingual Turkish support
  */
 
-import fs from 'fs';
 import axios from 'axios';
+import fs from 'fs';
 
 export default class ElevenLabsClient {
   constructor() {
@@ -25,9 +25,9 @@ export default class ElevenLabsClient {
           text: text,
           model_id: 'eleven_multilingual_v2', // Best for Turkish
           voice_settings: {
-            stability: 0.5, // Lower = more expressive
+            stability: 0.6, // Lower = more expressive
             similarity_boost: 0.75, // Higher = closer to voice
-            style: 0.0,
+            style: 0.2,
             use_speaker_boost: true
           }
         },
