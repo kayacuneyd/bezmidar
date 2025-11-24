@@ -14,7 +14,7 @@ import ElevenLabsClient from './clients/elevenlabs.js';
 import R2Client from './clients/r2.js';
 import YouTubeClient from './clients/youtube.js';
 import { mixAudio, downloadMusic, getAudioDuration } from './utils/ffmpeg.js';
-import { updateEpisodeViaWebhook, logProgress } from './utils/helpers.js';
+import { updateEpisodeViaWebhook, logProgress, addPronunciationHints } from './utils/helpers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,9 +39,11 @@ async function generatePodcast(episodeId, topicPrompt, title = '', description =
     // Step 1: Generate script with Anthropic Claude
     logProgress(episodeId, 'generating', '📝 Senaryo yazılıyor (Claude API)...');
     const anthropic = new AnthropicClient();
-    const script = await anthropic.generatePodcastScript(topicPrompt, title, description);
+    const rawScript = await anthropic.generatePodcastScript(topicPrompt, title, description);
 
-    logProgress(episodeId, 'generating', `✅ Senaryo hazır (${script.length} karakter)`);
+    // Apply phonetic hints for better German word pronunciation
+    const script = addPronunciationHints(rawScript);
+    logProgress(episodeId, 'generating', `✅ Senaryo hazır + fonetik düzeltmeler uygulandı (${script.length} karakter)`);
 
     // Step 2: Text-to-Speech with ElevenLabs
     logProgress(episodeId, 'generating', '🎙️ Seslendirme yapılıyor (ElevenLabs)...');

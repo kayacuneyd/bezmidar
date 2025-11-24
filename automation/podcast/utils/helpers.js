@@ -129,3 +129,55 @@ export async function sendNotificationEmail(episodeId, title, status) {
   console.log(`📧 Notification: Episode #${episodeId} "${title}" → ${status}`);
   // TODO: Implement email sending
 }
+
+/**
+ * Add pronunciation hints for German words in Turkish text
+ * Improves TTS (Text-to-Speech) quality by replacing German words with phonetic Turkish equivalents
+ */
+export function addPronunciationHints(script) {
+  const pronunciationMap = {
+    // School system
+    'Gymnasium': 'Gimnasyum',
+    'Realschule': 'Real-şule',
+    'Hauptschule': 'Haupt-şule',
+    'Grundschule': 'Grunt-şule',
+    'Gesamtschule': 'Gezamt-şule',
+    'Förderschule': 'Förder-şule',
+
+    // Education processes
+    'Ausbildung': 'Aus-bildung',
+    'Anmeldung': 'An-meldung',
+    'Einschulung': 'Ayn-şulung',
+    'Schulanmeldung': 'Şul-anmeldung',
+
+    // Financial terms
+    'Kindergeld': 'Kinder-gelt',
+    'Elterngeld': 'Eltern-gelt',
+    'BAföG': 'Ba-fök',
+    'Bürgergeld': 'Bürger-gelt',
+
+    // Common words
+    'Abitur': 'Abitur',
+    'Kita': 'Kita',
+    'Kindergarten': 'Kinder-garten',
+    'Schule': 'Şule',
+    'Lehrer': 'Lerer',
+    'Zeugnis': 'Tsöyg-nis',
+
+    // Levels/Grades
+    'Klasse': 'Klase',
+    'Stufe': 'Ştufe',
+    'Semester': 'Zemester'
+  };
+
+  let enhanced = script;
+
+  // Replace each German word with its phonetic equivalent
+  for (const [german, phonetic] of Object.entries(pronunciationMap)) {
+    // Case-insensitive replacement, preserves context
+    const regex = new RegExp(`\\b${german}\\b`, 'gi');
+    enhanced = enhanced.replace(regex, phonetic);
+  }
+
+  return enhanced;
+}
