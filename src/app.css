@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    /* 35-55 yaş grubu için okunabilirliği artırıyoruz */
+    font-size: 18px; 
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply text-gray-800;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+}
+
 /* Safe area padding for mobile notch */
 .safe-top {
   padding-top: env(safe-area-inset-top);
