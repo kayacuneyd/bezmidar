@@ -16,8 +16,31 @@ $limit = 10;
 $offset = ($page - 1) * $limit;
 
 try {
-    $where = ["u.role = 'student'", "u.is_active = 1", "u.approval_status = 'approved'"]; // Sadece onaylı öğretmenler
+    // Filtreler: Sadece onaylı, aktif öğretmenler ve teacher_profiles kaydı olanlar
+    $where = ["u.role = 'student'", "u.is_active = 1", "u.approval_status = 'approved'"];
     $params = [];
+    
+    // Debug: Hangi öğretmenler filtreleniyor kontrolü (sadece development için)
+    // Production'da bu log'ları kaldırabilirsiniz
+    if (isset($_GET['debug']) && $_GET['debug'] === '1') {
+        $debugSql = "
+            SELECT 
+                u.id,
+                u.full_name,
+                u.approval_status,
+                u.is_active,
+                CASE WHEN tp.user_id IS NULL THEN 'NO_PROFILE' ELSE 'HAS_PROFILE' END as profile_status
+            FROM users u
+            LEFT JOIN teacher_profiles tp ON u.id = tp.user_id
+            WHERE u.role = 'student'
+            ORDER BY u.created_at DESC
+            LIMIT 50
+        ";
+        $debugStmt = $pdo->prepare($debugSql);
+        $debugStmt->execute();
+        $debugTeachers = $debugStmt->fetchAll(PDO::FETCH_ASSOC);
+        error_log('DEBUG: All teachers (last 50): ' . json_encode($debugTeachers));
+    }
 
     if (!empty($city)) {
         $where[] = "tp.city = ?";
@@ -79,7 +102,10 @@ try {
         FROM users u
         JOIN teacher_profiles tp ON u.id = tp.user_id
         WHERE $whereClause
-        ORDER BY tp.rating_avg DESC, tp.review_count DESC
+        ORDER BY 
+            COALESCE(tp.rating_avg, 0) DESC, 
+            COALESCE(tp.review_count, 0) DESC,
+            u.created_at DESC
         LIMIT $limit OFFSET $offset
     ";
 

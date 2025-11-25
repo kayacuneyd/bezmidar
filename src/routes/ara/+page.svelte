@@ -8,8 +8,17 @@
   let teachers = [];
   let subjects = [];
   let loading = true;
+  let loadingMore = false;
   let error = null;
   let viewMode = 'list'; // 'list' or 'map'
+  
+  // Pagination state
+  let pagination = {
+    currentPage: 1,
+    totalPages: 1,
+    total: 0,
+    hasMore: false
+  };
   
   // Filter state
   let filters = {
@@ -28,23 +37,53 @@
     }
   }
   
-  async function loadTeachers() {
-    loading = true;
+  async function loadTeachers(reset = true) {
+    if (reset) {
+      loading = true;
+      teachers = [];
+      filters.page = 1;
+    } else {
+      loadingMore = true;
+    }
     error = null;
     
     try {
       const response = await api.get('/teachers/list.php', filters);
-      teachers = response.data.teachers;
+      const newTeachers = response.data.teachers || [];
+      
+      if (reset) {
+        teachers = newTeachers;
+      } else {
+        teachers = [...teachers, ...newTeachers];
+      }
+      
+      // Update pagination info
+      if (response.data.pagination) {
+        pagination = {
+          currentPage: response.data.pagination.page || filters.page,
+          totalPages: response.data.pagination.pages || 1,
+          total: response.data.pagination.total || 0,
+          hasMore: filters.page < (response.data.pagination.pages || 1)
+        };
+      }
     } catch (e) {
       error = 'Öğretmenler yüklenemedi. Lütfen tekrar deneyin.';
     } finally {
       loading = false;
+      loadingMore = false;
     }
+  }
+  
+  async function loadMoreTeachers() {
+    if (loadingMore || !pagination.hasMore) return;
+    
+    filters.page += 1;
+    await loadTeachers(false);
   }
   
   function applyFilters(newFilters) {
     filters = { ...filters, ...newFilters, page: 1 };
-    loadTeachers();
+    loadTeachers(true);
   }
   
   onMount(() => {
@@ -102,10 +141,38 @@
         </div>
       {:else}
         {#if viewMode === 'list'}
-          <div class="grid md:grid-cols-2 gap-6">
-            {#each teachers as teacher}
-              <TeacherCard {teacher} />
-            {/each}
+          <div class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              {#each teachers as teacher}
+                <TeacherCard {teacher} />
+              {/each}
+            </div>
+            
+            <!-- Pagination Info -->
+            {#if pagination.total > 0}
+              <div class="text-center text-sm text-gray-600 py-2">
+                {teachers.length} / {pagination.total} öğretmen gösteriliyor
+              </div>
+            {/if}
+            
+            <!-- Load More Button -->
+            {#if pagination.hasMore && !loadingMore}
+              <div class="text-center pt-4">
+                <button
+                  on:click={loadMoreTeachers}
+                  class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-100"
+                >
+                  Daha Fazla Yükle
+                </button>
+              </div>
+            {/if}
+            
+            {#if loadingMore}
+              <div class="text-center py-4">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <p class="mt-2 text-sm text-gray-600">Yükleniyor...</p>
+              </div>
+            {/if}
           </div>
         {:else}
           <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
